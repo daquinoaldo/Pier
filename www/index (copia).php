@@ -156,18 +156,21 @@ if(isset($_POST['submit'])) {
 	}
 	function radioHandler() {
 		wordpress = document.getElementById("wordpress");
-		if(!apache.checked) {	//nginx and wordpress
+		if(wordpress.checked) {
 			php.checked = false;
 			mysql.checked = false;
-		}
-		if(wordpress.checked) {
 			enableSQL();
 			mysqldb.disabled = true;
 			mysqldb.value = "wordpress";
-		} else {
+		}
+		else if (nginx.checked) {
+			php.checked = false;
+			mysql.checked = false;
+		}
+		else {
 			disableSQL();
-			//php.disabled = false;
-			//mysql.disabled = false;
+			php.disabled = false;
+			mysql.disabled = false;
 		}
 	}
 	function mysqlHandler() {
@@ -176,12 +179,12 @@ if(isset($_POST['submit'])) {
 			php.checked = true;
 			mysqldb.value = "";
 			enableSQL();
-		}	else disableSQL();
+		}
+		else disableSQL();
 	}
 	function phpHandler() {
 		if (php.checked) {
 			apache.checked = true;
-			if (!mysql.checked) disableSQL();
 		}
 		else {
 			mysql.checked = false;
