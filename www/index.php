@@ -8,7 +8,7 @@
 		margin-left: 20%;
 		margin-right: 20%;
 	}
-	#log {
+	.log {
 		font-family: monospace;
 		border: 1px solid #000;
 		background: #8e8e8e;
@@ -26,28 +26,27 @@ $sites_folder = "/sites";
 
 function getPort($port_to_exlude) {
 	$port = -1;
-	$error_message = "Error: cant't read the port file located in the www folder";
 	$handle = fopen("port", "r+");
 	if($handle) {
-		if (($line = fgets($handle)) == false) die($error_message);
+		if (($line = fgets($handle)) == false) die("Error: cant't read the port file located in the www folder");
 		$port = intval($line);
 		$port++;
 		while(in_array($port, $port_to_exlude)) $port++;
 		fseek($handle, 0);
 		if(fputs($handle, $port, strlen($port)) == false) die("Error: can't write the port file located in the www folder");
 		fclose($handle);
-	} else die($error_message);
+	} else die("Error: cant't open the port file located in the www folder");
 	if($port==-1) die("Error getting port.");
 	return $port;
 }
 
-function recurse_copy($src, $dst) { 
+function recursive_copy($src, $dst) { 
 	$dir = opendir($src);
 	$old_umask = umask(0);	// Maybe dangerous?
 	mkdir($dst, 0777); 
 	while(($file = readdir($dir)) !== false) {
 		if(($file != '.') && ($file != '..')) {
-			if(is_dir($src.'/'.$file)) recurse_copy ($src.'/'.$file, $dst.'/'.$file); 
+			if(is_dir($src.'/'.$file)) recursive_copy ($src.'/'.$file, $dst.'/'.$file); 
 			else if(copy($src.'/'.$file, $dst.'/'.$file) == false) die("Error in copying the default folder.");
 		}
 	}
@@ -59,7 +58,7 @@ function recurse_copy($src, $dst) {
 if(isset($_POST['submit'])) {
 	// Die if missing informations
 	if(empty($_POST['domain']) || empty($_POST['webserver'])) die("Domain and Web server field are required. Reaload the page and try again.");
-	if(isset($_POST['mysql']) && (empty($_POST['mysqldb']) || empty($_POST['mysqlpw']))) die("MySQL database and password needed. Reaload the page and try again.");
+	if($_POST['mysql'] && (empty($_POST['mysqldb']) || empty($_POST['mysqlpw']))) die("MySQL database and password needed. Reaload the page and try again.");
 	
 	// Parsing parameters and updating port
 	$domain = htmlentities($_POST['domain'], ENT_QUOTES);
@@ -68,25 +67,37 @@ if(isset($_POST['submit'])) {
 	$mysqldb = htmlentities($_POST['mysqldb'], ENT_QUOTES);
 	$mysqlpw = htmlentities($_POST['mysqlpw'], ENT_QUOTES);
 	
-	// Build the bash command
 	// WEBSERVER SWITCH
-	$ugly_options = "2>/dev/null 1>/dev/null &";	//TODO: maybe 2>/dev/null is not a good idea...
-	$apache_folder = "/usr/local/apache2/htdocs/";
-	$nginx_folder = "/usr/share/nginx/html:ro";
+	// $ugly_options = "2>log/$domain.error 1>log/$domain.log &";
+	$ugly_options = "2>/dev/null 1>/dev/null &";	//TODO: fix
 	switch ($webserver) {
 		case "apache":
-			$bash_command = "sudo docker run --name $domain -e VIRTUAL_HOST=$domain -p $port:80 -v $sites_folder/$domain:$apache_folder httpd:2.4 $ugly_options";
+			if($_POST['php']) {
+				$image = "php:7.0-apache";
+				$volume = "-v $sites_folder/$domain:/var/www/html/";
+				recursive_copy("$sites_folder/test_php/", "$sites_folder/$domain/");
+			}	else {
+				$image = "httpd:2.4";
+				$volume = "-v $sites_folder/$domain:/usr/local/apache2/htdocs/";
+				recursive_copy("$sites_folder/test_html/", "$sites_folder/$domain/");
+			}
 			break;
 		case "nginx":
-			$bash_command = "sudo docker run --name $domain -e VIRTUAL_HOST=$domain -p $port:80 -v $sites_folder/$domain:$nginx_folder nginx $ugly_options";
+			$image = "nginx";
+			$volume = "-v $sites_folder/$domain:/usr/share/nginx/html:ro";
+			recursive_copy("$sites_folder/test_html/", "$sites_folder/$domain/");
 			break;
 		case "wordpress":
-			$bash_command = "sudo docker run --name $domain-db -e MYSQL_ROOT_PASSWORD=$mysqlpw -e MYSQL_DATABASE=wordpress -d mysql:5.7 2>/dev/null 1>/dev/null && sleep 30 && sudo docker run --name $domain -e VIRTUAL_HOST=$domain -p $port:80 -e WORDPRESS_DB_PASSWORD=$mysqlpw --link $domain-db:mysql wordpress $ugly_options";
+			$image = "wordpress";
+			$other_options = "-e WORDPRESS_DB_PASSWORD=$mysqlpw --link $domain-db:mysql";
+			$db_command = "sudo docker run --name $domain-db -e MYSQL_ROOT_PASSWORD=$mysqlpw -e MYSQL_DATABASE=wordpress -d mysql:5.7 $ugly_options && sleep 30 &&";
 			break;
-}
+	}
+	// Build the bash command
+	if (isset($image)) $bash_command = "$db_command sudo docker run --name $domain -e VIRTUAL_HOST=$domain -p $port:80 $volume $other_options $image $ugly_options";
 	
 	// Prepare the folder
-	recurse_copy($sites_folder."/default/", $sites_folder."/".$domain."/");
+	//recursive_copy("$sites_folder/default/", "$sites_folder/$domain/");
 	
 	// Run the docker command and build the website
 	$output = shell_exec($bash_command);
@@ -94,8 +105,12 @@ if(isset($_POST['submit'])) {
 	
 	// REPORT PAGE ?>
 	Your web space is ready! <a href="http://<?php echo $domain; ?>">Visit it!</a>
+	<br><br>
+	Bash command:<br>
+	<div class="log"><?php echo $bash_command; ?></div>
+	<br><br>
 	Log:<br>
-	<div id="log"><?php echo $output; ?></div>
+	<div class="log"><?php echo json_encode($output); ?></div>
 	
 <?php } else { // DEFAULT PAGE	?>
 	<form method="post">
@@ -156,7 +171,7 @@ if(isset($_POST['submit'])) {
 	}
 	function radioHandler() {
 		wordpress = document.getElementById("wordpress");
-		if(!apache.checked) {	//nginx and wordpress
+		if(!apache.checked) {		//nginx and wordpress		TODO: and maybe also apache?
 			php.checked = false;
 			mysql.checked = false;
 		}
@@ -166,8 +181,6 @@ if(isset($_POST['submit'])) {
 			mysqldb.value = "wordpress";
 		} else {
 			disableSQL();
-			//php.disabled = false;
-			//mysql.disabled = false;
 		}
 	}
 	function mysqlHandler() {

@@ -6,8 +6,9 @@ cp -r sites $sites_folder
 chmod 777 $sites_folder
 
 # Make executable this and the docker-clean.sh scripts
-sudo chmod +x init.sh
-sudo chmod +x docker-clean.sh
+#chmod +x init.sh
+#chmod +x docker-clean.sh
+chmod -R 777 .
 
 # Create container for nginx-proxy
 docker run --name nginx-proxy -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy
@@ -15,6 +16,7 @@ docker run --name nginx-proxy -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.so
 # Pull the images
 docker pull nginx
 docker pull httpd:2.4
+docker pull php:7.0-apache
 docker pull mysql:5.7
 docker pull wordpress
 
