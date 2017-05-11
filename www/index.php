@@ -20,8 +20,9 @@
 // Default configurations
 $start_port = 8001;
 $finish_port = 8999;
-$port_to_exlude = array(8080, 8888);
+$port_to_exlude = array(8080, 8888);	//builder and phpmyadmin
 $sites_folder = "/sites";
+$mysql_rootpw = "r00t";
 
 
 function getPort($port_to_exlude) {
@@ -55,6 +56,30 @@ function recursive_copy($src, $dst) {
 	closedir($dir); 
 }
 
+function create_sql ($mysql_rootpw, $database, $username, $password) {
+	$link = mysqli_connect("172.17.0.1:3306", "root", "$mysql_rootpw");
+	if (!$link) die('Error in connecting to mysql.');
+	// Create database
+	$sql = "CREATE DATABASE `$database`";
+	$result = mysqli_query($link, $sql);
+	if (!$result) die('Error in creating database.');
+	// Create user
+	$sql = "CREATE USER '$username'@'localhost' IDENTIFIED BY '$password'";
+	$result = mysqli_query($link, $sql);
+	// Flush privileges
+	$sql = "FLUSH PRIVILEGES";
+	$result = mysqli_query($link, $sql);
+	if (!$result) die('Error in flushing privileges.');
+	// Grant privileges
+	$sql = "GRANT ALL PRIVILEGES ON `$database`.* TO '$username'@'localhost'";
+	$result = mysqli_query($link, $sql);		
+	if (!$result) die('Error in granting privileges to new user.');
+	/* OLD GRANT
+	$sql = "GRANT SELECT , INSERT , UPDATE , DELETE ON * . * TO 'generic_user'@'localhost' IDENTIFIED BY $password WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0";
+	$result = mysqli_query($link, $sql);		
+	if (!$result) die('Error in granting privileges to new user.'); */
+}
+
 if(isset($_POST['submit'])) {
 	// Die if missing informations
 	if(empty($_POST['domain']) || empty($_POST['webserver'])) die("Domain and Web server field are required. Reaload the page and try again.");
@@ -62,6 +87,7 @@ if(isset($_POST['submit'])) {
 	
 	// Parsing parameters and updating port
 	$domain = htmlentities($_POST['domain'], ENT_QUOTES);
+	$parsed_domain = str_replace("-", "_", str_replace(".", "_", $domain));
 	$webserver = htmlentities($_POST['webserver'], ENT_QUOTES);	//Someone can edit html, is not that difficult...
 	$port = getPort($port_to_exlude);
 	$mysqldb = htmlentities($_POST['mysqldb'], ENT_QUOTES);
@@ -72,20 +98,26 @@ if(isset($_POST['submit'])) {
 	$ugly_options = "2>/dev/null 1>/dev/null &";	//TODO: fix
 	switch ($webserver) {
 		case "apache":
-			if($_POST['php']) {
-				$image = "php:7.0-apache";
-				$volume = "-v $sites_folder/$domain:/var/www/html/";
-				recursive_copy("$sites_folder/test_php/", "$sites_folder/$domain/");
+			if($_POST['mysql']) {
+				$image = "daquinoaldo/php:apache-mysql";
+				$volume = "-v $sites_folder/$parsed_domain:/var/www/site/";
+				create_sql($mysql_rootpw, $parsed_domain, $parsed_domain, $mysqlpw);
+				recursive_copy("$sites_folder/test_sql/", "$sites_folder/$parsed_domain/");
+				//$other_options = "--link mysql:mysql";
+			} else if($_POST['php']) {
+				$image = "php:apache";
+				$volume = "-v $sites_folder/$parsed_domain:/var/www/html/";
+				recursive_copy("$sites_folder/test_php/", "$sites_folder/$parsed_domain/");
 			}	else {
 				$image = "httpd:2.4";
-				$volume = "-v $sites_folder/$domain:/usr/local/apache2/htdocs/";
-				recursive_copy("$sites_folder/test_html/", "$sites_folder/$domain/");
+				$volume = "-v $sites_folder/$parsed_domain:/usr/local/apache2/htdocs/";
+				recursive_copy("$sites_folder/test_html/", "$sites_folder/$parsed_domain/");
 			}
 			break;
 		case "nginx":
 			$image = "nginx";
-			$volume = "-v $sites_folder/$domain:/usr/share/nginx/html:ro";
-			recursive_copy("$sites_folder/test_html/", "$sites_folder/$domain/");
+			$volume = "-v $sites_folder/$parsed_domain:/usr/share/nginx/html:ro";
+			recursive_copy("$sites_folder/test_html/", "$sites_folder/$parsed_domain/");
 			break;
 		case "wordpress":
 			$image = "wordpress";
@@ -93,15 +125,12 @@ if(isset($_POST['submit'])) {
 			$db_command = "sudo docker run --name $domain-db -e MYSQL_ROOT_PASSWORD=$mysqlpw -e MYSQL_DATABASE=wordpress -d mysql:5.7 $ugly_options && sleep 30 &&";
 			break;
 	}
+	
 	// Build the bash command
 	if (isset($image)) $bash_command = "$db_command sudo docker run --name $domain -e VIRTUAL_HOST=$domain -p $port:80 $volume $other_options $image $ugly_options";
 	
-	// Prepare the folder
-	//recursive_copy("$sites_folder/default/", "$sites_folder/$domain/");
-	
 	// Run the docker command and build the website
 	$output = shell_exec($bash_command);
-	//exec($bash_command, $output);
 	
 	// REPORT PAGE ?>
 	Your web space is ready! <a href="http://<?php echo $domain; ?>">Visit it!</a>
