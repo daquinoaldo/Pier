@@ -64,14 +64,14 @@ function create_sql ($mysql_rootpw, $database, $username, $password) {
 	$result = mysqli_query($link, $sql);
 	if (!$result) die('Error in creating database.');
 	// Create user
-	$sql = "CREATE USER '$username'@'localhost' IDENTIFIED BY '$password'";
+	$sql = "CREATE USER '$username'@'%' IDENTIFIED BY '$password'";
 	$result = mysqli_query($link, $sql);
 	// Flush privileges
 	$sql = "FLUSH PRIVILEGES";
 	$result = mysqli_query($link, $sql);
 	if (!$result) die('Error in flushing privileges.');
 	// Grant privileges
-	$sql = "GRANT ALL PRIVILEGES ON `$database`.* TO '$username'@'localhost'";
+	$sql = "GRANT ALL PRIVILEGES ON `$database`.* TO '$username'@'%'";
 	$result = mysqli_query($link, $sql);		
 	if (!$result) die('Error in granting privileges to new user.');
 	/* OLD GRANT
@@ -82,26 +82,28 @@ function create_sql ($mysql_rootpw, $database, $username, $password) {
 
 if(isset($_POST['submit'])) {
 	// Die if missing informations
-	if(empty($_POST['domain']) || empty($_POST['webserver'])) die("Domain and Web server field are required. Reaload the page and try again.");
-	if($_POST['mysql'] && (empty($_POST['mysqldb']) || empty($_POST['mysqlpw']))) die("MySQL database and password needed. Reaload the page and try again.");
+	if(empty($_POST['domain']) || empty($_POST['webserver']) || empty($_POST['password'])) die("Domain, Web server and password fields are required. Reaload the page and try again.");
 	
 	// Parsing parameters and updating port
 	$domain = htmlentities($_POST['domain'], ENT_QUOTES);
 	$parsed_domain = str_replace("-", "_", str_replace(".", "_", $domain));
 	$webserver = htmlentities($_POST['webserver'], ENT_QUOTES);	//Someone can edit html, is not that difficult...
 	$port = getPort($port_to_exlude);
-	$mysqldb = htmlentities($_POST['mysqldb'], ENT_QUOTES);
-	$mysqlpw = htmlentities($_POST['mysqlpw'], ENT_QUOTES);
+	$password = htmlentities($_POST['password'], ENT_QUOTES);
+	
+	// Prepare FTP user
+	$bash_command = "useradd -g ftp-users -b $sites_folder $parsed_domain";	// -m -k /dev/null -s /bin/false
+	$bash_command = "echo \"password\" | passwd $parsed_domain --stdin";
 	
 	// WEBSERVER SWITCH
-	// $ugly_options = "2>log/$domain.error 1>log/$domain.log &";
+	//$ugly_options = "2>log/".$parsed_domain.".error 1>log/".$parsed_domain.".log &";
 	$ugly_options = "2>/dev/null 1>/dev/null &";	//TODO: fix
 	switch ($webserver) {
 		case "apache":
 			if($_POST['mysql']) {
 				$image = "daquinoaldo/php:apache-mysql";
 				$volume = "-v $sites_folder/$parsed_domain:/var/www/site/";
-				create_sql($mysql_rootpw, $parsed_domain, $parsed_domain, $mysqlpw);
+				create_sql($mysql_rootpw, $parsed_domain, $parsed_domain, $password);
 				recursive_copy("$sites_folder/test_sql/", "$sites_folder/$parsed_domain/");
 				//$other_options = "--link mysql:mysql";
 			} else if($_POST['php']) {
@@ -121,9 +123,11 @@ if(isset($_POST['submit'])) {
 			break;
 		case "wordpress":
 			$image = "wordpress";
-			$other_options = "-e WORDPRESS_DB_PASSWORD=$mysqlpw --link $domain-db:mysql";
-			$db_command = "sudo docker run --name $domain-db -e MYSQL_ROOT_PASSWORD=$mysqlpw -e MYSQL_DATABASE=wordpress -d mysql:5.7 $ugly_options && sleep 30 &&";
+			$other_options = "-e WORDPRESS_DB_PASSWORD=$password --link $domain-db:mysql";
+			$db_command = "sudo docker run --name $domain-db -e MYSQL_ROOT_PASSWORD=$password -e MYSQL_DATABASE=wordpress -d mysql:5.7 $ugly_options && sleep 30 &&";
 			break;
+		default:
+			$bash_command = "echo \"Error\"";
 	}
 	
 	// Build the bash command
@@ -162,15 +166,10 @@ if(isset($_POST['submit'])) {
 			<label for="wordpress">Wordpress</label>
 			<input type="radio" id="wordpress" name="webserver" value="wordpress" onclick="radioHandler()">
 			Please note that Wordpress setup requires about 30 seconds.
-		</fieldset>
-		<br><br>
-		<fieldset id="mysqlfieldset" style="display: none;">
-			<legend>MySQL settings</legend>
-			<label for="mysqldb">MySQL database name:</label>
-			<input type="text" id="mysqldb" name="mysqldb" disabled>
-			<br>
-			<label for="mysqlpw">MySQL password:</label>
-			<input type="password" id="mysqlpw" name="mysqlpw" disabled>
+			<br><br>
+			<label for="password">Admin Password:</label>
+			<input type="password" id="password" name="password" required>
+			Password for FTP access and phpMyAdmin (where exist). The username is your domain in parsed form ("." and "-" are replaced with "_" like this: mydomain_com)
 		</fieldset>
 		<br>
 		<input type="hidden" name="submit">
@@ -181,54 +180,21 @@ if(isset($_POST['submit'])) {
 	nginx = document.getElementById("nginx");
 	php = document.getElementById("php");
 	mysql = document.getElementById("mysql");
-	mysqlfieldset = document.getElementById("mysqlfieldset");
-	mysqldb = document.getElementById("mysqldb");
-	mysqlpw = document.getElementById("mysqlpw");
-	function enableSQL() {
-		mysqldb.disabled = false;
-		mysqldb.required = true;
-		mysqlpw.disabled = false;
-		mysqlpw.required = true;
-		mysqlfieldset.style.display = "block";
-	}
-	function disableSQL() {
-		mysqlfieldset.style.display = "none";
-		mysqldb.disabled = true;
-		mysqldb.required = false;
-		mysqlpw.disabled = true;
-		mysqlpw.required = false;
-	}
 	function radioHandler() {
-		wordpress = document.getElementById("wordpress");
-		if(!apache.checked) {		//nginx and wordpress		TODO: and maybe also apache?
+		if(!apache.checked) {		// you cannot have PHP and/or mySQL without Apache
 			php.checked = false;
 			mysql.checked = false;
 		}
-		if(wordpress.checked) {
-			enableSQL();
-			mysqldb.disabled = true;
-			mysqldb.value = "wordpress";
-		} else {
-			disableSQL();
-		}
 	}
 	function mysqlHandler() {
-		if (mysql.checked) {
+		if (mysql.checked) {		// Apache with PHP required for mySQL
 			apache.checked = true;
 			php.checked = true;
-			mysqldb.value = "";
-			enableSQL();
-		}	else disableSQL();
+		}
 	}
 	function phpHandler() {
-		if (php.checked) {
-			apache.checked = true;
-			if (!mysql.checked) disableSQL();
-		}
-		else {
-			mysql.checked = false;
-			disableSQL();
-		}
+		if (php.checked) apache.checked = true;		// PHP requires Apache
+		else mysql.checked = false;		// you cannot have mySQL without PHP
 	}
 	</script>
 <?php } ?>

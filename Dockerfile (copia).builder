@@ -2,9 +2,9 @@
 
 FROM ubuntu:latest
 
-# Install apache, PHP, ftp and supplimentary programs. openssh-server, curl, and lynx-cur are for debugging the container. sudo and docker.io needed to comunicate with the docker daemon. Removed apt-get -y upgrade, according with the dockerfile documentation.
+# Install apache, PHP, and supplimentary programs. openssh-server, curl, and lynx-cur are for debugging the container. sudo and docker.io needed to comunicate with the docker daemon. Removed apt-get -y upgrade, according with the dockerfile documentation.
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
-    apache2 php7.0 php7.0-mysql libapache2-mod-php7.0 curl lynx-cur docker.io sudo vsftpd
+    apache2 php7.0 php7.0-mysql libapache2-mod-php7.0 curl lynx-cur docker.io sudo
 # Ignore the warning "debconf: delaying package configuration, since apt-utils is not installed". Is an issue of APT incorrectly requiring the (unnecessary) package, it isn't able to stop you from anything. 
 
 # Enable apache mods.
@@ -34,14 +34,7 @@ EXPOSE 80
 # Update the default apache site with the config we created.
 ADD apache-config.conf /etc/apache2/sites-enabled/000-default.conf
 
-# Replace the vsftpd config file.
-#ADD vsftpd.conf /etc/vsftpd.conf
-#RUN service vsftpd restart
-
-# Create ft-users group
-#RUN groupadd ftp-users
-
-# Make possible exec sudo commands from web. This shold be secure because we are inside a container. Be sure that users CANNOT upload php scripts in THIS container! This container can exec Docker commands.
+# Make possible exec sudo commands from web. This shold be secure because we are inside a container. Be sure that users CANNOT upload php scripts in THIS container!
 RUN echo "www-data ALL=NOPASSWD: ALL" >> /etc/sudoers
 
 # By default start up apache in the foreground, override with /bin/bash for interative.

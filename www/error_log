@@ -1,6 +1,0 @@
-[11-May-2017 09:25:47 UTC] PHP Warning:  mysqli_connect(): MySQL server has gone away in /var/www/site/index.php on line 60
-[11-May-2017 09:25:48 UTC] PHP Warning:  mysqli_connect(): Error while reading greeting packet. PID=12 in /var/www/site/index.php on line 60
-[11-May-2017 09:25:48 UTC] PHP Warning:  mysqli_connect(): (HY000/2006): MySQL server has gone away in /var/www/site/index.php on line 60
-[11-May-2017 09:25:56 UTC] PHP Warning:  mysqli_connect(): MySQL server has gone away in /var/www/site/index.php on line 60
-[11-May-2017 09:25:56 UTC] PHP Warning:  mysqli_connect(): Error while reading greeting packet. PID=14 in /var/www/site/index.php on line 60
-[11-May-2017 09:25:56 UTC] PHP Warning:  mysqli_connect(): (HY000/2006): MySQL server has gone away in /var/www/site/index.php on line 60

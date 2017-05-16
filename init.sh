@@ -97,7 +97,7 @@ printf "Preparing builder... "
 docker build -t daquinoaldo/builder -f Dockerfile.builder . 1>log/dockerfile.builder.log 2>log/dockerfile.builder.error
 check
 printf "Run builder... "
-docker run --name builder -v /var/run/docker.sock:/var/run/docker.sock -v `pwd`/www:/var/www/site -v $sites_folder:$sites_folder -p 8080:80 -e VIRTUAL_HOST=builder.aldodaquino.ml builder 1>log/builder.log 2>log/builder.error &
+docker run --name builder -v /var/run/docker.sock:/var/run/docker.sock -v `pwd`/www:/var/www/site -v $sites_folder:$sites_folder -p 8080:80 -p 2121:21 -e VIRTUAL_HOST=builder.aldodaquino.ml builder 1>log/builder.log 2>log/builder.error &
 check
 echo "All done."
 echo "Ready!"

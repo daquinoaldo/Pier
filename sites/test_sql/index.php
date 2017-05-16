@@ -29,6 +29,7 @@ else die("Error: " . $conn->error);
 
 // Select
 echo "Selecting id and name from MyGuest... Espected 1 result: \"ID: 1 - Name: John Doe\"";
+echo "";	// New line
 $sql = "SELECT id, firstname, lastname FROM MyGuests";
 if($_GET['debug']) echo "SQL query: $sql";
 $result = $conn->query($sql);
