@@ -23,6 +23,7 @@ $finish_port = 8999;
 $port_to_exlude = array(8080, 8888);	//builder and phpmyadmin
 $sites_folder = "/sites";
 $mysql_rootpw = "r00t";
+$DEBUG = true;
 
 
 function getPort($port_to_exlude) {
@@ -56,6 +57,11 @@ function recursive_copy($src, $dst) {
 	closedir($dir); 
 }
 
+function create_ftp ($username, $password, $home) {
+	$bash_command = "sudo docker exec ftp bash /adduser.sh $username $password $home";
+	$output = shell_exec($bash_command);
+}
+
 function create_sql ($mysql_rootpw, $database, $username, $password) {
 	$link = mysqli_connect("172.17.0.1:3306", "root", "$mysql_rootpw");
 	if (!$link) die('Error in connecting to mysql.');
@@ -74,10 +80,6 @@ function create_sql ($mysql_rootpw, $database, $username, $password) {
 	$sql = "GRANT ALL PRIVILEGES ON `$database`.* TO '$username'@'%'";
 	$result = mysqli_query($link, $sql);		
 	if (!$result) die('Error in granting privileges to new user.');
-	/* OLD GRANT
-	$sql = "GRANT SELECT , INSERT , UPDATE , DELETE ON * . * TO 'generic_user'@'localhost' IDENTIFIED BY $password WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0";
-	$result = mysqli_query($link, $sql);		
-	if (!$result) die('Error in granting privileges to new user.'); */
 }
 
 if(isset($_POST['submit'])) {
@@ -90,10 +92,6 @@ if(isset($_POST['submit'])) {
 	$webserver = htmlentities($_POST['webserver'], ENT_QUOTES);	//Someone can edit html, is not that difficult...
 	$port = getPort($port_to_exlude);
 	$password = htmlentities($_POST['password'], ENT_QUOTES);
-	
-	// Prepare FTP user
-	$bash_command = "useradd -g ftp-users -b $sites_folder $parsed_domain";	// -m -k /dev/null -s /bin/false
-	$bash_command = "echo \"password\" | passwd $parsed_domain --stdin";
 	
 	// WEBSERVER SWITCH
 	//$ugly_options = "2>log/".$parsed_domain.".error 1>log/".$parsed_domain.".log &";
@@ -130,6 +128,9 @@ if(isset($_POST['submit'])) {
 			$bash_command = "echo \"Error\"";
 	}
 	
+	// Prepare the ftp user
+	create_ftp ("$parsed_domain", "$password", "$sites_folder/$parsed_domain");
+	
 	// Build the bash command
 	if (isset($image)) $bash_command = "$db_command sudo docker run --name $domain -e VIRTUAL_HOST=$domain -p $port:80 $volume $other_options $image $ugly_options";
 	
@@ -138,14 +139,16 @@ if(isset($_POST['submit'])) {
 	
 	// REPORT PAGE ?>
 	Your web space is ready! <a href="http://<?php echo $domain; ?>">Visit it!</a>
-	<br><br>
-	Bash command:<br>
-	<div class="log"><?php echo $bash_command; ?></div>
-	<br><br>
-	Log:<br>
-	<div class="log"><?php echo json_encode($output); ?></div>
+	<?php if ($DEBUG) { ?>
+		<br><br>
+		Bash command:<br>
+		<div class="log"><?php echo $bash_command; ?></div>
+		<br><br>
+		Log:<br>
+		<div class="log"><?php echo json_encode($output); ?></div>
 	
-<?php } else { // DEFAULT PAGE	?>
+<?php }
+	} else { // DEFAULT PAGE	?>
 	<form method="post">
 		<label for="domain">Domain:</label>
 		<input type="text" name="domain" id="domain" placeholder="example.com" autofocus required><br>

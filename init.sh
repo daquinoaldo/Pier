@@ -3,7 +3,7 @@ sites_folder="/sites"
 mysql_rootpw="r00t"
 
 
-images=( ubuntu jwilder/nginx-proxy mysql phpmyadmin/phpmyadmin httpd:2.4 php:apache nginx mysql:5.7 wordpress )
+images=( ubuntu jwilder/nginx-proxy stilliard/pure-ftpd mysql phpmyadmin/phpmyadmin httpd:2.4 php:apache nginx mysql:5.7 wordpress )
 
 
 SKIP=false
@@ -55,7 +55,6 @@ then
 		docker pull ${var} 1>log/images/${plain_var}.log 2>log/images/${plain_var}.error
 		check
 	done
-	.
 fi
 
 # Create the sites folder
@@ -69,9 +68,13 @@ check
 #chmod +x docker-clean.sh
 chmod -R 777 .	#TODO: maybe not??
 
-# Create container for nginx-proxy, MySQL and phpMyAdmin
+# Create container for nginx-proxy, ftp, MySQL and phpMyAdmin
 printf "Creating container for nginx-proxy... "
 docker run --name nginx-proxy -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy 1>log/nginx-proxy.log 2>log/nginx-proxy.error
+check
+printf "Creating container for ftp... "
+docker build -t daquinoaldo/ftp -f Dockerfile.ftp . 1>log/dockerfile.ftp.log 2>log/dockerfile.ftp.error
+docker run -d --name ftp -p 21:21 -p 30000-30009:30000-30009 -e "PUBLICHOST=localhost" -v $sites_folder:$sites_folder daquinoaldo/ftp 1>log/ftp.log 2>log/ftp.error	#TODO: remove hardened
 check
 printf "Creating container for MySQL... "
 docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=$mysql_rootpw mysql 1>log/mysql.log 2>log/mysql.error &
@@ -97,7 +100,7 @@ printf "Preparing builder... "
 docker build -t daquinoaldo/builder -f Dockerfile.builder . 1>log/dockerfile.builder.log 2>log/dockerfile.builder.error
 check
 printf "Run builder... "
-docker run --name builder -v /var/run/docker.sock:/var/run/docker.sock -v `pwd`/www:/var/www/site -v $sites_folder:$sites_folder -p 8080:80 -p 2121:21 -e VIRTUAL_HOST=builder.aldodaquino.ml builder 1>log/builder.log 2>log/builder.error &
+docker run --name builder -v /var/run/docker.sock:/var/run/docker.sock -v `pwd`/www:/var/www/site -v $sites_folder:$sites_folder -p 8080:80 -p 2121:21 -p 2020:20 -p 2222:22 -e VIRTUAL_HOST=builder.aldodaquino.ml builder 1>log/builder.log 2>log/builder.error &
 check
 echo "All done."
 echo "Ready!"

@@ -1,0 +1,3 @@
+FROM stilliard/pure-ftpd:hardened
+ADD adduser.sh /adduser.sh
+RUN chmod +x /adduser.sh
