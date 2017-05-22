@@ -122,7 +122,7 @@ if(isset($_POST['submit'])) {
 		case "wordpress":
 			$image = "wordpress";
 			$other_options = "-e WORDPRESS_DB_PASSWORD=$password --link $domain-db:mysql";
-			$db_command = "sudo docker run --name $domain-db -e MYSQL_ROOT_PASSWORD=$password -e MYSQL_DATABASE=wordpress -d mysql:5.7 $ugly_options && sleep 30 &&";
+			$db_command = "sudo docker run --name $domain-db -e MYSQL_ROOT_PASSWORD=$password -e MYSQL_DATABASE=wordpress -d mysql:5.7 $ugly_options& sleep 30 &&";
 			break;
 		default:
 			$bash_command = "echo \"Error\"";

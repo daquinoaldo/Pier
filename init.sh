@@ -74,7 +74,7 @@ docker run --name nginx-proxy -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.so
 check
 printf "Creating container for ftp... "
 docker build -t daquinoaldo/ftp -f Dockerfile.ftp . 1>log/dockerfile.ftp.log 2>log/dockerfile.ftp.error
-docker run -d --name ftp -p 21:21 -p 30000-30009:30000-30009 -e "PUBLICHOST=localhost" -v $sites_folder:$sites_folder daquinoaldo/ftp 1>log/ftp.log 2>log/ftp.error	#TODO: remove hardened
+docker run -d --name ftp -p 21:21 -p 30000-30009:30000-30009 -e "PUBLICHOST=localhost" -e VIRTUAL_HOST=ftp.aldodaquino.ml -v $sites_folder:$sites_folder daquinoaldo/ftp 1>log/ftp.log 2>log/ftp.error	#TODO: remove hardened
 check
 printf "Creating container for MySQL... "
 docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=$mysql_rootpw mysql 1>log/mysql.log 2>log/mysql.error &
