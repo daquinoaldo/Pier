@@ -25,7 +25,7 @@ check
 
 # Remove logs
 printf "Removing logs... "
-rm -rf log/*
+rm -rf log
 check
 
 

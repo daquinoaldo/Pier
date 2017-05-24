@@ -3,7 +3,7 @@ sites_folder="/sites"
 mysql_rootpw="r00t"
 
 
-images=( ubuntu jwilder/nginx-proxy stilliard/pure-ftpd mysql phpmyadmin/phpmyadmin httpd:2.4 php:apache nginx mysql:5.7 wordpress )
+images=( ubuntu jwilder/nginx-proxy stilliard/pure-ftpd:hardened mysql phpmyadmin/phpmyadmin httpd:2.4 php:apache nginx mysql:5.7 wordpress )
 
 
 SKIP=false
@@ -42,6 +42,8 @@ function check {
 		echo "error. Check the logs in the log folder. Error code: $?."
 	fi
 }
+
+mkdir log
 
 if [ $SKIP == false ]
 then
