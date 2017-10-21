@@ -1,7 +1,7 @@
 # Where to put files	!! CHANGE IT ALSO IN docker-clean.sh !!
 sites_folder="/sites"
 mysql_rootpw="r00t"
-domain="dockerwebservebuilder.ml"
+domain="dockerwebserverbuilder.ml"
 
 
 images=( ubuntu jwilder/nginx-proxy stilliard/pure-ftpd:hardened mysql phpmyadmin/phpmyadmin httpd:2.4 php:apache nginx mysql:5.7 wordpress )
