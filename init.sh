@@ -107,3 +107,5 @@ docker run --name builder -v /var/run/docker.sock:/var/run/docker.sock -v `pwd`/
 check
 echo "All done."
 echo "Ready!"
+
+sudo docker run --name builder_sql -p 8000:3306 -e MYSQL_ROOT_PASSWORD=admin -v ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d -d mysql
