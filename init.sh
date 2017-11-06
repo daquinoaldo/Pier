@@ -1,6 +1,6 @@
 # Where to put files	!! CHANGE IT ALSO IN docker-clean.sh !!
 sites_folder="/sites"
-mysql_rootpw="r00t"
+rootpw="r00t"
 domain="dockerwebserverbuilder.ml"
 
 
@@ -12,7 +12,7 @@ SKIP=false
 # Options:
 # -s|--skip: skip pull
 # -f|--sites_folder: specify the sites folder		!! Remember to change it also in the others file !!
-# -p|--mysql_rootpw: specify the mysql root password		!! Remember to change it also in the others file !!
+# -p|--rootpw: specify the mysql root password		!! Remember to change it also in the others file !!
 while [[ $@ ]]
 do
 	key="$1"
@@ -24,8 +24,8 @@ do
 			sites_folder="$2"
 			shift
 			;;
-		-p|--mysql_rootpw)
-			mysql_rootpw="$2"
+		-p|--rootpw)
+			rootpw="$2"
 			shift
 			;;
 		*)
@@ -80,7 +80,7 @@ docker build -t daquinoaldo/ftp -f Dockerfile.ftp . 1>log/dockerfile.ftp.log 2>l
 docker run -d --name ftp -p 21:21 -p 30000-30009:30000-30009 -e "PUBLICHOST=localhost" -e VIRTUAL_HOST="ftp.$domain" -v $sites_folder:$sites_folder daquinoaldo/ftp 1>log/ftp.log 2>log/ftp.error	#TODO: remove hardened
 check
 printf "Creating container for MySQL... "
-docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=$mysql_rootpw mysql 1>log/mysql.log 2>log/mysql.error &
+docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=$rootpw mysql 1>log/mysql.log 2>log/mysql.error &
 check
 #wait mysql container
 until nc -z -v -w30 127.0.0.1 3306 1>/dev/null 2>/dev/null
@@ -98,14 +98,17 @@ printf "Preparing php:apache-mysql... "
 docker build -t daquinoaldo/php:apache-mysql -f Dockerfile.builder . 1>log/dockerfile.mysql.log 2>log/dockerfile.mysql.error
 check
 
+# Run MySQL container for the builder users and websites database
+printf "Run builder-mysql... "
+docker run --name builder-mysql -p 8000:3306 -e MYSQL_ROOT_PASSWORD=$rootpw -v `pwd`/sql-initdb.d:/docker-entrypoint-initdb.d -d mysql 1>log/builder-mysql.log 2>log/builder-mysql.error &
+check
+
 # Build and run the builder
 printf "Preparing builder... "
 docker build -t daquinoaldo/builder -f Dockerfile.builder . 1>log/dockerfile.builder.log 2>log/dockerfile.builder.error
 check
 printf "Run builder... "
-docker run --name builder -v /var/run/docker.sock:/var/run/docker.sock -v `pwd`/www:/var/www/site -v $sites_folder:$sites_folder -p 8080:80 -p 2121:21 -p 2020:20 -p 2222:22 -e VIRTUAL_HOST="builder.$domain" daquinoaldo/builder 1>log/builder.log 2>log/builder.error &
+docker run --name builder -v /var/run/docker.sock:/var/run/docker.sock -v `pwd`/builder:/var/www/site -v $sites_folder:$sites_folder -p 8080:80 -p 2121:21 -p 2020:20 -p 2222:22 -e VIRTUAL_HOST="builder.$domain" daquinoaldo/builder 1>log/builder.log 2>log/builder.error &
 check
 echo "All done."
 echo "Ready!"
-
-sudo docker run --name builder_sql -p 8000:3306 -e MYSQL_ROOT_PASSWORD=admin -v ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d -d mysql
