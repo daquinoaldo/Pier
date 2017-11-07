@@ -36,7 +36,7 @@ ALTER TABLE `users`
 CREATE TABLE `websites` (
   `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `domain` int(255) NOT NULL
+  `domain` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE `websites`

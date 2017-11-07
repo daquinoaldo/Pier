@@ -24,17 +24,35 @@ function query($sql) {
 
 function addUser($username, $password, $email) {
     $password = md5($password);
-    $sql = "INSERT INTO users (username, password, email) VALUES ($username, $password, $email)";
-    echo query($sql);
+    $sql = "INSERT INTO users (username, password, email) VALUES ('$username', '$password', '$email')";
+    return query($sql);
 }
 
-function userList() {
+function getUserList() {
     $sql = "SELECT * FROM users";
-    echo query($sql);
+    return query($sql);
+}
+
+function addWebsite($username, $domain) {
+    $sql = "INSERT INTO websites (username, domain) VALUES ('$username', '$domain')";
+    return query($sql);
+}
+
+function getWebsiteList($username) {
+    $sql = "SELECT * FROM websites WHERE username='$username'";
+    return query($sql);
+}
+
+function encodeQuery($result) {
+    if(is_bool($result)) return json_encode($result);
+    $rows = array();
+    while($r = mysqli_fetch_assoc($result))
+        $rows[] = $r;
+    return json_encode($rows);
 }
 
 function login() {
-    if(empty($_POST['username']) || empty($_POST[password]))
+    if(empty($_POST['username']) || empty($_POST['password']))
         die(newMessage(-1, "Username or password empty."));
     $username = htmlentities($_POST['username'], ENT_QUOTES);
     $password = htmlentities($_POST['password'], ENT_QUOTES);
