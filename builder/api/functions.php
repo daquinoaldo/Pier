@@ -1,5 +1,6 @@
 <?php
 
+/*GENERIC FUNCTIONS */
 function newMessage($code, $text) {
     $message = (object) [
         'code' => $code,
@@ -8,6 +9,7 @@ function newMessage($code, $text) {
     return json_encode($message);
 }
 
+/* DATABASE */
 function query($sql) {
     $servername = "dwb.aldodaquino.com";
     $port = 8000;
@@ -22,6 +24,13 @@ function query($sql) {
     return $result;
 }
 
+/* FETCH QUERY RESULT:
+$row = mysqli_fetch_array($result)                  // $row is an array with all the column content of a row
+$rows = mysqli_fetch_all($result, [MYSQLI_BOTH])    // $rows is an array with all the rows
+*/
+
+
+/* USERS, LOGIN and SESSION */
 function addUser($username, $password, $email) {
     $password = md5($password);
     $sql = "INSERT INTO users (username, password, email) VALUES ('$username', '$password', '$email')";
@@ -29,10 +38,22 @@ function addUser($username, $password, $email) {
 }
 
 function getUserList() {
-    $sql = "SELECT * FROM users";
-    return query($sql);
+    return query("SELECT * FROM users");
 }
 
+function login($username, $password) {
+    $result = query("SELECT password FROM users WHERE username='$username'");
+    if(!$result) return false;
+    $result = mysqli_fetch_array($result)['password'];
+    $password = md5($password);
+    if($result !== $password) return false;
+    session_start();
+    $_SESSION["username"] = $username;
+    session_commit();
+    return true;
+}
+
+/* WEBSITES */
 function addWebsite($username, $domain) {
     $sql = "INSERT INTO websites (username, domain) VALUES ('$username', '$domain')";
     return query($sql);
@@ -41,22 +62,4 @@ function addWebsite($username, $domain) {
 function getWebsiteList($username) {
     $sql = "SELECT * FROM websites WHERE username='$username'";
     return query($sql);
-}
-
-function encodeQuery($result) {
-    if(is_bool($result)) return json_encode($result);
-    $rows = array();
-    while($r = mysqli_fetch_assoc($result))
-        $rows[] = $r;
-    return json_encode($rows);
-}
-
-function login() {
-    if(empty($_POST['username']) || empty($_POST['password']))
-        die(newMessage(-1, "Username or password empty."));
-    $username = htmlentities($_POST['username'], ENT_QUOTES);
-    $password = htmlentities($_POST['password'], ENT_QUOTES);
-    if(!validateUser($username, $password)) die(newMessage(-2, "Username or password wrong."));
-    session_start();
-    $_SESSION["username"] = $username;
 }

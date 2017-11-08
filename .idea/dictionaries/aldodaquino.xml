@@ -2,6 +2,7 @@
   <dictionary name="aldodaquino">
     <words>
       <w>dbname</w>
+      <w>onreadystatechange</w>
       <w>servername</w>
     </words>
   </dictionary>
