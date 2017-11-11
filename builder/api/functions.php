@@ -37,6 +37,7 @@ function addUser($username, $password, $email) {
     return query($sql);
 }
 
+// !! Do NOT expose !!
 function getUserList() {
     return query("SELECT * FROM users");
 }
@@ -48,9 +49,13 @@ function login($username, $password) {
     $password = md5($password);
     if($result !== $password) return false;
     session_start();
-    $_SESSION["username"] = $username;
+    $_SESSION['username'] = $username;
     session_commit();
     return true;
+}
+
+function getUsername() {
+    return $_SESSION['username'];
 }
 
 /* WEBSITES */

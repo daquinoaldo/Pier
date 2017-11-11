@@ -1,6 +1,6 @@
-function post(url, data, callback) {
+function xhr(method, url, data, callback) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
+    xhr.open(method, url, true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -8,6 +8,13 @@ function post(url, data, callback) {
             callback(jsonResponse);
         }
     };
-
     xhr.send(data);
+}
+
+function post(url, data, callback) {
+    xhr("POST", url, data, callback);
+}
+
+function get(url, data, callback) {
+    xhr("GET", url, data, callback);
 }
