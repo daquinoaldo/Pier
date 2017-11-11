@@ -15,14 +15,44 @@ function onLoggedIn(json){
     }
 }
 
-function submitRegister() {
+function sRegister() {
+    var username = document.getElementById("RUsername").value;
+    var email = document.getElementById("REmail").value;
+    var password = document.getElementById("RPassword").value;
+    var password2 = document.getElementById("RPassword2").value;
+    if (password !== password2) {
+        console.error("ERROR: Password mismatching.")
+        // Shake form
+    }
+    else post("api/sign-up.php", "username="+username+"&email="+email+"&password="+password, onRegistered);
+    return false;
+}
+
+function onRegistered(json) {
+    if(json.code < 0) {
+        console.error("ERROR: "+json.text);
+        /// Shake form
+    } else {
+        window.location.href = "index.html";
+    }
+}
+
+function aLogout() {
+    get("api/logout.php", null, function (json) {
+        if(json.code < 0) {
+            console.error("ERROR: "+json.text);
+            alert("Can't log out. Sorry for the inconvenience. Try again later.")
+        } else {
+            window.location.href = "login.html";
+        }
+    });
     return false;
 }
 
 /* INDEX.HTML */
 function checkLogin() {
     /// Loading
-    get("api/getUsername.php", null, function (json) {
+    get("api/get-username.php", null, function (json) {
         if (json.code < 0) {
             console.error("ERROR: "+json.text);
             window.location.replace("login.html");
@@ -35,7 +65,7 @@ function checkLogin() {
 }
 
 function loadWebsitesList() {
-    get("api/getUserWebsites.php", null, function (json) {
+    get("api/get-user-websites.php", null, function (json) {
         if (json.code < 0) {    // Not logged in: really unlikely, I just checked
             console.error("ERROR: "+json.text);
             window.location.replace("login.html");

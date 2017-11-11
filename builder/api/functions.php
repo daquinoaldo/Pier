@@ -27,19 +27,19 @@ function query($sql) {
 /* FETCH QUERY RESULT:
 $row = mysqli_fetch_array($result)                  // $row is an array with all the column content of a row
 $rows = mysqli_fetch_all($result, [MYSQLI_BOTH])    // $rows is an array with all the rows
+$rows = mysqli_fetch_all($result, [MYSQLI_ASSOC])
 */
 
 
 /* USERS, LOGIN and SESSION */
-function addUser($username, $password, $email) {
+function signUp($username, $password, $email) {
     $password = md5($password);
     $sql = "INSERT INTO users (username, password, email) VALUES ('$username', '$password', '$email')";
-    return query($sql);
-}
-
-// !! Do NOT expose !!
-function getUserList() {
-    return query("SELECT * FROM users");
+    if(query($sql) !== true) return false;
+    session_start();
+    $_SESSION['username'] = $username;
+    session_commit();
+    return true;
 }
 
 function login($username, $password) {
