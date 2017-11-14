@@ -1,3 +1,4 @@
+#!/bin/bash
 # Where to put files	!! CHANGE IT ALSO IN docker-clean.sh !!
 sites_folder="/sites"
 rootpw="r00t"

@@ -144,10 +144,10 @@ function builderRun($id) {
 
     $website = mysqli_fetch_array(query("SELECT * FROM websites WHERE id='$id'"));
 
-    recursive_copy("$sites_folder/test_html/", "$sites_folder/".$website.id."/");
-    $volume = "$sites_folder/".$website.id.":/var/www/site/";
+    recursive_copy("$sites_folder/test_html/", "$sites_folder/".$website['id']."/");
+    $volume = "$sites_folder/".$website['id'].":/var/www/site/";
 
-    switch ($website.webserver) {
+    switch ($website['webserver']) {
         case "apache":
             $image = "httpd";
             break;
@@ -155,10 +155,10 @@ function builderRun($id) {
             $image = "nginx";
             break;
         default:
-            error_log("Unknown web server ".$website.webserver);
+            error_log("Unknown web server ".$website['webserver']);
             return false;
             break;
     }
-    dockerRun($website.id, $website.domain, $website.port, $volume, $image, "");
+    dockerRun($website['id'], $website['domain'], $website['port'], $volume, $image, "");
     return true;
 }
