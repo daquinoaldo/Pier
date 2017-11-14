@@ -11,6 +11,7 @@ function checkLogin() {
         }
     });
 }
+checkLogin();
 
 function loadWebsitesList() {
     get("api/get-user-websites.php", null, function (json) {

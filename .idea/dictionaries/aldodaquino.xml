@@ -2,6 +2,8 @@
   <dictionary name="aldodaquino">
     <words>
       <w>dbname</w>
+      <w>informations</w>
+      <w>nginx</w>
       <w>onreadystatechange</w>
       <w>servername</w>
     </words>

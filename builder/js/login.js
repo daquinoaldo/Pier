@@ -14,7 +14,7 @@ function onLoggedIn(json){
     }
 }
 
-function sRegister() {
+function sSignUp() {
     var username = document.getElementById("RUsername").value;
     var email = document.getElementById("REmail").value;
     var password = document.getElementById("RPassword").value;
@@ -23,11 +23,11 @@ function sRegister() {
         console.error("ERROR: Password mismatching.")
         // Shake form
     }
-    else post("api/sign-up.php", "username="+username+"&email="+email+"&password="+password, onRegistered);
+    else post("api/sign-up.php", "username="+username+"&email="+email+"&password="+password, onSignedUp);
     return false;
 }
 
-function onRegistered(json) {
+function onSignedUp(json) {
     if(json.code < 0) {
         console.error("ERROR: "+json.text);
         /// Shake form
