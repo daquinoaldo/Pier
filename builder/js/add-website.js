@@ -53,7 +53,7 @@ function sWebsite() {
     }
     // Send request
     var data = "webserver="+webserver+"&php="+php.checked+"&domain="+domain;
-    get("api/add-website.php", data, onWebsiteCreated);
+    post("api/add-website.php", data, onWebsiteCreated);
     return false;
 }
 

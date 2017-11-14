@@ -25,7 +25,9 @@ function loadWebsitesList() {
                 var row = table.insertRow(table.rows.length);
                 row.insertCell(0).innerHTML = websites[i].id;
                 row.insertCell(1).innerHTML = "<a href=\"http://"+websites[i].domain+"\">"+websites[i].domain+"</a>";
-                row.insertCell(2).innerHTML = "<a href=\"#\">manage</a>";
+                row.insertCell(2).innerHTML = websites[i].webserver;
+                row.insertCell(3).innerHTML = websites[i].php;
+                row.insertCell(4).innerHTML = "<a href=\"manage.html?id="+websites[i].id+"\">manage</a>";
             }
             /// stop loading
         }

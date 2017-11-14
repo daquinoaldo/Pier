@@ -90,13 +90,14 @@ function getWebsiteList($username) {
     return query($sql);
 }
 
-function getPortDB() {
+function getPort() {
     $start_port = 8000;
     $finish_port = 8999;
     $port_to_exclude = array(8000, 8080, 8888);	// builder-mysql, builder and phpmyadmin
 
-    $port = query("SELECT MIN(port) FROM websites"); // last port used
-    $port++;    // new port
+    $port = mysqli_fetch_assoc(query("SELECT MIN(port) AS port FROM websites"))['port']; // last port used
+    if ($port == null) $port = $start_port; // there is no active website
+    else $port++;    // last port used + 1 = next port number
     while (in_array($port, $port_to_exclude)) $port++;    // if the port is reserved increment again
     if ($port > $finish_port) {
         for ($i = $start_port; $i <= $finish_port; $i++)    // check if there is a port that is not in use
@@ -115,41 +116,6 @@ function getPortDB() {
 /* COPIED FROM WWW/INDEX:PHP */
 
 $sites_folder = "/sites";
-
-//TODO: Read port from database
-function getPort() {
-    $finish_port = 8999;
-    $port_to_exclude = array(8080, 8888);	//builder and phpmyadmin
-    $port_file = "port";
-
-    // Read file
-    $handle = fopen($port_file, "r+");
-    if (!$handle) {
-        error_log("Cant't open the port file located in the www folder.");
-        return null;
-    }
-    if (($line = fgets($handle)) == false) {
-        error_log("Cant't read the port file located in the www folder.");
-        return null;
-    }
-    $port = intval($line);  // last port used
-    // Get new port
-    $port++;    // new port
-    while (in_array($port, $port_to_exclude)) $port++;    // if the port is reserved increment again
-    if ($port > $finish_port) {
-        error_log("All the ports are in use, cannot allocate another port. Consider increment the port range.");
-        return null;
-    }
-    // Write new port in file
-    fseek($handle, 0);
-    if (fputs($handle, $port, strlen($port)) == false){
-        error_log("Can't write the port file located in the www folder.");
-        return false;
-    }
-    fclose($handle);
-    // Return the port number in case of no error
-    return $port;
-}
 
 function recursive_copy($src, $dst) {
     $dir = opendir($src);
