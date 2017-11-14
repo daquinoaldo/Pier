@@ -1,6 +1,6 @@
 <?php
 
-/*GENERIC FUNCTIONS */
+/* LOGS and MESSAGES */
 function newMessage($code, $text) {
     $message = (object) [
         'code' => $code,
@@ -9,26 +9,38 @@ function newMessage($code, $text) {
     return json_encode($message);
 }
 
-/* DATABASE */
-/*
-function query($servername, $port, $username, $password, $dbname, $sql) {
-    $conn = new mysqli($servername, $username, $password, $dbname, $port);
-    if ($conn->connect_error)
-        die(newMessage(-1, "Connection failed: ".$conn->connect_error));
-    $result = $conn->query($sql);
-    $conn->close();
-    return $result;
+/* FILE MANAGER */
+function recursive_copy($src, $dst) {
+    $dir = opendir($src);
+    if (!$dir) {
+        error_log("Can't open $src.");
+        return false;
+    }
+    $old_umask = umask(0);	// Maybe dangerous?
+    if (umask() != 0) {
+        error_log("Can't set the umask to 0. The umask value is ".umask().".");
+        return false;
+    }
+    mkdir($dst, 0777);
+    while($file = readdir($dir) !== false) {
+        if($file != '.' && $file != '..') {
+            if(is_dir($src.'/'.$file)) recursive_copy ($src.'/'.$file, $dst.'/'.$file);
+            else if(copy($src.'/'.$file, $dst.'/'.$file) == false) {
+                error_log("Error in copying the default folder.");
+                return false;
+            }
+        }
+    }
+    umask($old_umask);
+    if ($old_umask != umask()) {
+        error_log("Error while changing back the umask. The umask value is ".umask().".");
+        return false;
+    }
+    closedir($dir);
+    return true;
 }
 
-function builder_query($sql) {
-    $servername = "dwb.aldodaquino.com";
-    $port = 8000;
-    $username = "root";
-    $password = "r00t";
-    $dbname = "builder";
-    return query($servername, $port, $username, $password, $dbname, $sql);
-}*/
-
+/* DATABASE */
 function query($sql) {
     $servername = "dwb.aldodaquino.com";
     $port = 8000;
@@ -82,20 +94,22 @@ function getUsername() {
 function addWebsiteToDatabase($username, $domain, $port, $webserver, $php) {
     $sql = "INSERT INTO websites (username, domain, port, webserver, php)".
         "VALUES ('$username', '$domain', '$port', '$webserver', '$php')";
-    return query($sql);
+    if(!query($sql)) return -1;
+    return query("SELECT SCOPE_IDENTITY()");
 }
 
-function getWebsiteList($username) {
+function getWebsitesList($username) {
     $sql = "SELECT * FROM websites WHERE username='$username'";
     return query($sql);
 }
 
+/* PORTS */
 function getPort() {
     $start_port = 8000;
     $finish_port = 8999;
     $port_to_exclude = array(8000, 8080, 8888);	// builder-mysql, builder and phpmyadmin
 
-    $port = mysqli_fetch_assoc(query("SELECT MIN(port) AS port FROM websites"))['port']; // last port used
+    $port = mysqli_fetch_array(query("SELECT MIN(port) AS port FROM websites"))['port']; // last port used
     if ($port == null) $port = $start_port; // there is no active website
     else $port++;    // last port used + 1 = next port number
     while (in_array($port, $port_to_exclude)) $port++;    // if the port is reserved increment again
@@ -113,21 +127,38 @@ function getPort() {
     return $port;
 }
 
-/* COPIED FROM WWW/INDEX:PHP */
+/* DOCKER */
+function dockerRun ($name, $domain, $port, $volume, $image, $options) {
+    echo "DOCKER RUN";
+    if(!empty($volume)) $volume = "-v ".$volume;
+    echo shell_exec("sudo docker run --name $name -e VIRTUAL_HOST=$domain -p $port:80 $volume $options $image");
+}
 
-$sites_folder = "/sites";
+function ftpAddUser ($username, $password, $home) {
+    echo "FTP ADD USER";
+    echo shell_exec("sudo docker exec ftp bash /add-user.sh $username $password $home");
+}
 
-function recursive_copy($src, $dst) {
-    $dir = opendir($src);
-    $old_umask = umask(0);	// Maybe dangerous?
-    mkdir($dst, 0777);
-    while(($file = readdir($dir)) !== false) {
-        if(($file != '.') && ($file != '..')) {
-            if(is_dir($src.'/'.$file)) recursive_copy ($src.'/'.$file, $dst.'/'.$file);
-            else if(copy($src.'/'.$file, $dst.'/'.$file) == false) die("Error in copying the default folder.");
-        }
+function builderRun($id) {
+    $sites_folder = "/sites";
+
+    $website = mysqli_fetch_array(query("SELECT * FROM websites WHERE id='$id'"));
+
+    recursive_copy("$sites_folder/test_html/", "$sites_folder/".$website.id."/");
+    $volume = "$sites_folder/".$website.id.":/var/www/site/";
+
+    switch ($website.webserver) {
+        case "apache":
+            $image = "httpd";
+            break;
+        case "nginx":
+            $image = "nginx";
+            break;
+        default:
+            error_log("Unknown web server ".$website.webserver);
+            return false;
+            break;
     }
-    umask($old_umask);
-    if($old_umask != umask()) die("Error while changing back the umask. We suggest to rebuild and relaunch the container.");
-    closedir($dir);
+    dockerRun($website.id, $website.domain, $website.port, $volume, $image, "");
+    return true;
 }

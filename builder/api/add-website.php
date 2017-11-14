@@ -25,7 +25,7 @@ $php = false;
 if (!empty($_POST['php']) && $_POST['php'] === "true") $php = true;
 
 // Add websites informations in database
-if(!addWebsiteToDatabase($username, $domain, $port, $webserver, $php))
-    die(newMessage(-6, "Error when writing to database."));
+$id = addWebsiteToDatabase($username, $domain, $port, $webserver, $php);
+if($id < 0) die(newMessage(-6, "Error when writing to database."));
 
 echo newMessage(0, "Website created.");

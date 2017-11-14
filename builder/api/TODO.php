@@ -25,40 +25,8 @@ $sites_folder = "/sites";
 $mysql_rootpw = "r00t";
 $DEBUG = true;
 
-
-function getPort($port_to_exlude) {
-	$port = -1;
-	$handle = fopen("port", "r+");
-	if($handle) {
-		if (($line = fgets($handle)) == false) die("Error: cant't read the port file located in the www folder");
-		$port = intval($line);
-		$port++;
-		while(in_array($port, $port_to_exlude)) $port++;
-		fseek($handle, 0);
-		if(fputs($handle, $port, strlen($port)) == false) die("Error: can't write the port file located in the www folder");
-		fclose($handle);
-	} else die("Error: cant't open the port file located in the www folder");
-	if($port==-1) die("Error getting port.");
-	return $port;
-}
-
-function recursive_copy($src, $dst) { 
-	$dir = opendir($src);
-	$old_umask = umask(0);	// Maybe dangerous?
-	mkdir($dst, 0777); 
-	while(($file = readdir($dir)) !== false) {
-		if(($file != '.') && ($file != '..')) {
-			if(is_dir($src.'/'.$file)) recursive_copy ($src.'/'.$file, $dst.'/'.$file); 
-			else if(copy($src.'/'.$file, $dst.'/'.$file) == false) die("Error in copying the default folder.");
-		}
-	}
-	umask($old_umask);
-	if($old_umask != umask()) die("Error while changing back the umask. We suggest to rebuild and relaunch the container.");
-	closedir($dir); 
-}
-
 function create_ftp ($username, $password, $home) {
-	$bash_command = "sudo docker exec ftp bash /adduser.sh $username $password $home";
+	$bash_command = "sudo docker exec ftp bash /add-user.sh $username $password $home";
 	$output = shell_exec($bash_command);
 }
 

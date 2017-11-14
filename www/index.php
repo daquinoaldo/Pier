@@ -58,7 +58,7 @@ function recursive_copy($src, $dst) {
 }
 
 function create_ftp ($username, $password, $home) {
-	$bash_command = "sudo docker exec ftp bash /adduser.sh $username $password $home";
+	$bash_command = "sudo docker exec ftp bash /add-user.sh $username $password $home";
 	$output = shell_exec($bash_command);
 }
 

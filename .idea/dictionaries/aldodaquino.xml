@@ -2,10 +2,12 @@
   <dictionary name="aldodaquino">
     <words>
       <w>dbname</w>
+      <w>httpd</w>
       <w>informations</w>
       <w>nginx</w>
       <w>onreadystatechange</w>
       <w>servername</w>
+      <w>sudo</w>
     </words>
   </dictionary>
 </component>
