@@ -28,4 +28,6 @@ if (!empty($_POST['php']) && $_POST['php'] === "true") $php = true;
 $id = addWebsiteToDatabase($username, $domain, $port, $webserver, $php);
 if($id < 0) die(newMessage(-6, "Error when writing to database."));
 
-echo newMessage(0, "Website created.");
+if(!builderRun($id)) die(newMessage(-7,"Cannot run the configuration. Please delete it and try again."));
+
+echo newMessage(-10, "Website created.");

@@ -95,7 +95,7 @@ function addWebsiteToDatabase($username, $domain, $port, $webserver, $php) {
     $sql = "INSERT INTO websites (username, domain, port, webserver, php)".
         "VALUES ('$username', '$domain', '$port', '$webserver', '$php')";
     if(!query($sql)) return -1;
-    return query("SELECT SCOPE_IDENTITY()");
+    return mysqli_fetch_array(query("SELECT SCOPE_IDENTITY()"))[0];
 }
 
 function getWebsitesList($username) {
