@@ -144,7 +144,7 @@ function builderRun($id) {
 
     $website = mysqli_fetch_array(query("SELECT * FROM websites WHERE id='$id'"));
 
-    recursive_copy("$sites_folder/test_html/", "$sites_folder/".$website['id']."/");
+    recursive_copy("$sites_folder/test_html/", "$sites_folder/".$website['id']."/");    // can return false
     $volume = "$sites_folder/".$website['id'].":/var/www/site/";
 
     switch ($website['webserver']) {
