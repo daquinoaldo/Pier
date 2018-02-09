@@ -4,8 +4,6 @@
     <list default="true" id="6e001b9b-0b99-4fc0-818e-76ab2981797a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/builder/api/add-website.php" afterPath="$PROJECT_DIR$/builder/api/add-website.php" />
-      <change beforePath="$PROJECT_DIR$/builder/js/login.js" afterPath="$PROJECT_DIR$/builder/js/login.js" />
-      <change beforePath="$PROJECT_DIR$/builder/login.html" afterPath="$PROJECT_DIR$/builder/login.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -258,7 +256,7 @@
       <workItem from="1516372448339" duration="1300000" />
       <workItem from="1518186041497" duration="679000" />
       <workItem from="1518189746751" duration="9000" />
-      <workItem from="1518189790894" duration="1593000" />
+      <workItem from="1518189790894" duration="1631000" />
     </task>
     <task id="LOCAL-00001" summary="Start PHPStorm project">
       <created>1509968214700</created>
@@ -351,11 +349,18 @@
       <option name="project" value="LOCAL" />
       <updated>1510699226721</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Login shows alert in case of error">
+      <created>1518191421367</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1518191421367</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57244000" />
+    <option name="totallyTimeSpent" value="57282000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -402,7 +407,8 @@
     <MESSAGE value="builderRun: first tries" />
     <MESSAGE value="builderRun: second attempt" />
     <MESSAGE value="builderRun: attempt 3" />
-    <option name="LAST_COMMIT_MESSAGE" value="builderRun: attempt 3" />
+    <MESSAGE value="Login shows alert in case of error" />
+    <option name="LAST_COMMIT_MESSAGE" value="Login shows alert in case of error" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
