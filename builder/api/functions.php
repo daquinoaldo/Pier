@@ -41,16 +41,33 @@ function recursive_copy($src, $dst) {
 }
 
 /* DATABASE */
-function query($sql) {
+function connect() {
     $servername = "dwb.aldodaquino.com";
     $port = 8000;
     $username = "root";
     $password = "r00t";
     $dbname = "builder";
     $conn = new mysqli($servername, $username, $password, $dbname, $port);
-    if ($conn->connect_error)
+    if ($conn->connect_error) {
+        $conn->close();
+        error_log("Error in ".__FILE__." at line ".__LINE__.": connect(). servername = \"$servername\", ".
+        "port = \"$port\", username = \"$username\", password = \"$password\", dbname = \"$dbname\".");
         die(newMessage(-1, "Connection failed: ".$conn->connect_error));
+    }
+    return $conn;
+}
+
+function exec_bool($sql) {
+    $conn = connect();
     $result = $conn->query($sql);
+    $conn->close();
+    return $result;
+}
+
+function exec_id($sql) {
+    $conn = connect();
+    if ($conn->query($sql)) $result = $conn->insert_id;
+    else $result = -1;
     $conn->close();
     return $result;
 }
@@ -66,7 +83,7 @@ $rows = mysqli_fetch_all($result, [MYSQLI_ASSOC])
 function signUp($username, $password, $email) {
     $password = md5($password);
     $sql = "INSERT INTO users (username, password, email) VALUES ('$username', '$password', '$email')";
-    if(query($sql) !== true) return false;
+    if(exec_bool($sql) !== true) return false;
     session_start();
     $_SESSION['username'] = $username;
     session_commit();
@@ -74,7 +91,7 @@ function signUp($username, $password, $email) {
 }
 
 function login($username, $password) {
-    $result = query("SELECT password FROM users WHERE username='$username'");
+    $result = exec_bool("SELECT password FROM users WHERE username='$username'");
     if(!$result) return false;
     $result = mysqli_fetch_array($result)['password'];
     $password = md5($password);
@@ -94,13 +111,12 @@ function getUsername() {
 function addWebsiteToDatabase($username, $domain, $port, $webserver, $php) {
     $sql = "INSERT INTO websites (username, domain, port, webserver, php)".
         "VALUES ('$username', '$domain', '$port', '$webserver', '$php')";
-    if(!query($sql)) return -1;
-    return mysqli_fetch_array(query("SELECT SCOPE_IDENTITY()"))[0];
+    return exec_id($sql);
 }
 
 function getWebsitesList($username) {
     $sql = "SELECT * FROM websites WHERE username='$username'";
-    return query($sql);
+    return exec_bool($sql);
 }
 
 /* PORTS */
@@ -109,13 +125,13 @@ function getPort() {
     $finish_port = 8999;
     $port_to_exclude = array(8000, 8080, 8888);	// builder-mysql, builder and phpmyadmin
 
-    $port = mysqli_fetch_array(query("SELECT MIN(port) AS port FROM websites"))['port']; // last port used
+    $port = mysqli_fetch_array(exec_bool("SELECT MIN(port) AS port FROM websites"))['port']; // last port used
     if ($port == null) $port = $start_port; // there is no active website
     else $port++;    // last port used + 1 = next port number
     while (in_array($port, $port_to_exclude)) $port++;    // if the port is reserved increment again
     if ($port > $finish_port) {
         for ($i = $start_port; $i <= $finish_port; $i++)    // check if there is a port that is not in use
-            if(query("SELECT COUNT(1) FROM websites WHERE port = '$i'") > 0) {
+            if(exec_bool("SELECT COUNT(1) FROM websites WHERE port = '$i'") > 0) {
                 $port = $i;
                 break;
             }
@@ -142,7 +158,7 @@ function ftpAddUser ($username, $password, $home) {
 function builderRun($id) {
     $sites_folder = "/sites";
 
-    $website = mysqli_fetch_array(query("SELECT * FROM websites WHERE id='$id'"));
+    $website = mysqli_fetch_array(exec_bool("SELECT * FROM websites WHERE id='$id'"));
 
     recursive_copy("$sites_folder/test_html/", "$sites_folder/".$website['id']."/");    // can return false
     $volume = "$sites_folder/".$website['id'].":/var/www/site/";

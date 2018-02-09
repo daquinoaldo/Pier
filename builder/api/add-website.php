@@ -25,9 +25,8 @@ if ($webserver != "apache" && $webserver != "nginx")
         "Supported web servers are Apache and Nginx"));
 
 // PHP
-$php = false;
-if (!empty($_POST['php']) && $_POST['php'] === "true") $php = true;
-error_log("PHPHPHPHPHPHP".$php);
+$php = 0;
+if (!empty($_POST['php']) && $_POST['php'] === "true") $php = 1;
 // Add websites informations in database
 $id = addWebsiteToDatabase($username, $domain, $port, $webserver, $php);
 if ($id < 0) {
