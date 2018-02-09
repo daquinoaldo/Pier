@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6e001b9b-0b99-4fc0-818e-76ab2981797a" name="Default" comment="Fixed add-website problem with boolean value">
+    <list default="true" id="6e001b9b-0b99-4fc0-818e-76ab2981797a" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/aldodaquino.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/aldodaquino.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/builder/api/add-website.php" afterPath="$PROJECT_DIR$/builder/api/add-website.php" />
-      <change beforePath="$PROJECT_DIR$/builder/api/functions.php" afterPath="$PROJECT_DIR$/builder/api/functions.php" />
-      <change beforePath="$PROJECT_DIR$/builder/api/test.php" afterPath="$PROJECT_DIR$/builder/api/test.php" />
+      <change beforePath="$PROJECT_DIR$/init.sh" afterPath="$PROJECT_DIR$/init.sh" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -47,7 +46,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="functions.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="functions.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/builder/api/functions.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
@@ -68,6 +67,16 @@
                 <marker date="1518194961936" expanded="true" signature="5143:5176" ph="SELECT * FRO... websites" />
                 <marker date="1518194961936" expanded="true" signature="5143:5180" ph="SELECT * FRO... websites" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="init.sh" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/init.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1529">
+              <caret line="4" column="28" lean-forward="true" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -155,12 +164,12 @@
         <option value="$PROJECT_DIR$/builder/js/index.js" />
         <option value="$PROJECT_DIR$/www/index.php" />
         <option value="$PROJECT_DIR$/builder/api/TODO.php" />
-        <option value="$PROJECT_DIR$/init.sh" />
         <option value="$PROJECT_DIR$/builder/api/test.php" />
         <option value="$PROJECT_DIR$/builder/index.html" />
         <option value="$PROJECT_DIR$/builder/js/login.js" />
         <option value="$PROJECT_DIR$/builder/api/add-website.php" />
         <option value="$PROJECT_DIR$/builder/api/functions.php" />
+        <option value="$PROJECT_DIR$/init.sh" />
       </list>
     </option>
   </component>
@@ -181,6 +190,7 @@
     <option name="height" value="677" />
   </component>
   <component name="ProjectLevelVcsManager">
+    <OptionsSetting value="false" id="Update" />
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
@@ -400,7 +410,7 @@
       <workItem from="1516372448339" duration="1300000" />
       <workItem from="1518186041497" duration="679000" />
       <workItem from="1518189746751" duration="9000" />
-      <workItem from="1518189790894" duration="5166000" />
+      <workItem from="1518189790894" duration="5634000" />
     </task>
     <task id="LOCAL-00001" summary="Start PHPStorm project">
       <created>1509968214700</created>
@@ -514,11 +524,18 @@
       <option name="project" value="LOCAL" />
       <updated>1518192661174</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Fixed add-website problem with boolean value">
+      <created>1518194970667</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1518194970667</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60817000" />
+    <option name="totallyTimeSpent" value="61285000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -568,7 +585,8 @@
     <MESSAGE value="Login shows alert in case of error" />
     <MESSAGE value="error_log stamps in case of error" />
     <MESSAGE value="Debug" />
-    <option name="LAST_COMMIT_MESSAGE" value="Debug" />
+    <MESSAGE value="Fixed add-website problem with boolean value" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed add-website problem with boolean value" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -936,20 +954,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Dockerfile.builder">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-237">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/init.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-475">
-          <caret line="2" column="18" lean-forward="false" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sql-initdb.d/init.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="491">
@@ -1020,6 +1024,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Dockerfile.builder">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/builder/api/functions.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1040,6 +1052,14 @@
             <marker date="1518194961936" expanded="true" signature="5143:5176" ph="SELECT * FRO... websites" />
             <marker date="1518194961936" expanded="true" signature="5143:5180" ph="SELECT * FRO... websites" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/init.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1529">
+          <caret line="4" column="28" lean-forward="true" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>
