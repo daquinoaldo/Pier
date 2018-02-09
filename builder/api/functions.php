@@ -156,6 +156,10 @@ function ftpAddUser ($username, $password, $home) {
 }
 
 function builderRun($id) {
+    if ($id < 0) {
+        return false;
+    }
+
     $sites_folder = "/sites";
 
     $website = mysqli_fetch_array(exec_bool("SELECT * FROM websites WHERE id='$id'"));
