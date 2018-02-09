@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6e001b9b-0b99-4fc0-818e-76ab2981797a" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/aldodaquino.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/aldodaquino.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/builder/js/functions.js" afterPath="$PROJECT_DIR$/builder/js/functions.js" />
+      <change beforePath="$PROJECT_DIR$/builder/api/functions.php" afterPath="$PROJECT_DIR$/builder/api/functions.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -45,37 +46,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="functions.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="functions.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/builder/api/functions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="161" column="0" lean-forward="false" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
+            <state relative-caret-position="-1623">
+              <caret line="37" column="52" lean-forward="false" selection-start-line="37" selection-start-column="52" selection-end-line="37" selection-end-column="52" />
               <folding>
-                <marker date="1518196645559" expanded="true" signature="2452:2541" ph="INSERT INTO table_name... " />
-                <marker date="1518196645559" expanded="true" signature="2452:2689" ph="INSERT INTO builder.users... " />
-                <marker date="1518196645559" expanded="true" signature="2757:2810" ph="SELECT passw... users" />
-                <marker date="1518196645559" expanded="true" signature="3270:3331" ph="INSERT INTO websites... " />
-                <marker date="1518196645559" expanded="true" signature="3270:3405" ph="INSERT INTO websites... " />
-                <marker date="1518196645559" expanded="true" signature="3487:3536" ph="SELECT * FRO... websites" />
-                <marker date="1518196645559" expanded="true" signature="3784:3813" ph="SELECT MIN(c... " />
-                <marker date="1518196645559" expanded="true" signature="3784:3822" ph="SELECT MIN(p... websites" />
-                <marker date="1518196645559" expanded="true" signature="4255:4298" ph="SELECT count... table" />
-                <marker date="1518196645559" expanded="true" signature="4255:4299" ph="SELECT count... table" />
-                <marker date="1518196645559" expanded="true" signature="4255:4302" ph="SELECT COUNT... websites" />
-                <marker date="1518196645559" expanded="true" signature="5191:5223" ph="SELECT * FRO... websites" />
-                <marker date="1518196645559" expanded="true" signature="5191:5224" ph="SELECT * FRO... websites" />
-                <marker date="1518196645559" expanded="true" signature="5191:5228" ph="SELECT * FRO... websites" />
+                <marker date="1518197428360" expanded="true" signature="2476:2565" ph="INSERT INTO table_name... " />
+                <marker date="1518197428360" expanded="true" signature="2476:2713" ph="INSERT INTO builder.users... " />
+                <marker date="1518197428360" expanded="true" signature="2781:2834" ph="SELECT passw... users" />
+                <marker date="1518197428360" expanded="true" signature="3294:3355" ph="INSERT INTO websites... " />
+                <marker date="1518197428360" expanded="true" signature="3294:3429" ph="INSERT INTO websites... " />
+                <marker date="1518197428360" expanded="true" signature="3511:3560" ph="SELECT * FRO... websites" />
+                <marker date="1518197428360" expanded="true" signature="3808:3837" ph="SELECT MIN(c... " />
+                <marker date="1518197428360" expanded="true" signature="3808:3846" ph="SELECT MIN(p... websites" />
+                <marker date="1518197428360" expanded="true" signature="4279:4322" ph="SELECT count... table" />
+                <marker date="1518197428360" expanded="true" signature="4279:4323" ph="SELECT count... table" />
+                <marker date="1518197428360" expanded="true" signature="4279:4326" ph="SELECT COUNT... websites" />
+                <marker date="1518197428360" expanded="true" signature="5271:5303" ph="SELECT * FRO... websites" />
+                <marker date="1518197428360" expanded="true" signature="5271:5304" ph="SELECT * FRO... websites" />
+                <marker date="1518197428360" expanded="true" signature="5271:5308" ph="SELECT * FRO... websites" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/builder/login.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="15" lean-forward="false" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -84,37 +75,7 @@
         <entry file="file://$PROJECT_DIR$/builder/api/add-website.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="434">
-              <caret line="37" column="13" lean-forward="false" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="login.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/builder/js/login.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="56" lean-forward="false" selection-start-line="23" selection-start-column="56" selection-end-line="23" selection-end-column="56" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="functions.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/builder/js/functions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="57" lean-forward="true" selection-start-line="7" selection-start-column="57" selection-end-line="7" selection-end-column="57" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="add-website.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/builder/add-website.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="35" lean-forward="false" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
+              <caret line="37" column="23" lean-forward="true" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -168,8 +129,8 @@
         <option value="$PROJECT_DIR$/builder/js/login.js" />
         <option value="$PROJECT_DIR$/builder/api/add-website.php" />
         <option value="$PROJECT_DIR$/init.sh" />
-        <option value="$PROJECT_DIR$/builder/api/functions.php" />
         <option value="$PROJECT_DIR$/builder/js/functions.js" />
+        <option value="$PROJECT_DIR$/builder/api/functions.php" />
       </list>
     </option>
   </component>
@@ -410,7 +371,7 @@
       <workItem from="1516372448339" duration="1300000" />
       <workItem from="1518186041497" duration="679000" />
       <workItem from="1518189746751" duration="9000" />
-      <workItem from="1518189790894" duration="7142000" />
+      <workItem from="1518189790894" duration="7798000" />
     </task>
     <task id="LOCAL-00001" summary="Start PHPStorm project">
       <created>1509968214700</created>
@@ -545,11 +506,18 @@
       <option name="project" value="LOCAL" />
       <updated>1518196648081</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Debug functions.js">
+      <created>1518196952770</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1518196952770</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62793000" />
+    <option name="totallyTimeSpent" value="63449000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -602,7 +570,8 @@
     <MESSAGE value="Fixed add-website problem with boolean value" />
     <MESSAGE value="init.sh wait for builder database online" />
     <MESSAGE value="Security checks in builderRun()" />
-    <option name="LAST_COMMIT_MESSAGE" value="Security checks in builderRun()" />
+    <MESSAGE value="Debug functions.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="Debug functions.js" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -624,20 +593,20 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1518196645559" expanded="true" signature="2452:2541" ph="INSERT INTO table_name... " />
-            <marker date="1518196645559" expanded="true" signature="2452:2689" ph="INSERT INTO builder.users... " />
-            <marker date="1518196645559" expanded="true" signature="2757:2810" ph="SELECT passw... users" />
-            <marker date="1518196645559" expanded="true" signature="3270:3331" ph="INSERT INTO websites... " />
-            <marker date="1518196645559" expanded="true" signature="3270:3405" ph="INSERT INTO websites... " />
-            <marker date="1518196645559" expanded="true" signature="3487:3536" ph="SELECT * FRO... websites" />
-            <marker date="1518196645559" expanded="true" signature="3784:3813" ph="SELECT MIN(c... " />
-            <marker date="1518196645559" expanded="true" signature="3784:3822" ph="SELECT MIN(p... websites" />
-            <marker date="1518196645559" expanded="true" signature="4255:4298" ph="SELECT count... table" />
-            <marker date="1518196645559" expanded="true" signature="4255:4299" ph="SELECT count... table" />
-            <marker date="1518196645559" expanded="true" signature="4255:4302" ph="SELECT COUNT... websites" />
-            <marker date="1518196645559" expanded="true" signature="5191:5223" ph="SELECT * FRO... websites" />
-            <marker date="1518196645559" expanded="true" signature="5191:5224" ph="SELECT * FRO... websites" />
-            <marker date="1518196645559" expanded="true" signature="5191:5228" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="2476:2565" ph="INSERT INTO table_name... " />
+            <marker date="1518197428360" expanded="true" signature="2476:2713" ph="INSERT INTO builder.users... " />
+            <marker date="1518197428360" expanded="true" signature="2781:2834" ph="SELECT passw... users" />
+            <marker date="1518197428360" expanded="true" signature="3294:3355" ph="INSERT INTO websites... " />
+            <marker date="1518197428360" expanded="true" signature="3294:3429" ph="INSERT INTO websites... " />
+            <marker date="1518197428360" expanded="true" signature="3511:3560" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="3808:3837" ph="SELECT MIN(c... " />
+            <marker date="1518197428360" expanded="true" signature="3808:3846" ph="SELECT MIN(p... websites" />
+            <marker date="1518197428360" expanded="true" signature="4279:4322" ph="SELECT count... table" />
+            <marker date="1518197428360" expanded="true" signature="4279:4323" ph="SELECT count... table" />
+            <marker date="1518197428360" expanded="true" signature="4279:4326" ph="SELECT COUNT... websites" />
+            <marker date="1518197428360" expanded="true" signature="5271:5303" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="5271:5304" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="5271:5308" ph="SELECT * FRO... websites" />
           </folding>
         </state>
       </provider>
@@ -673,20 +642,20 @@
         <state relative-caret-position="2176">
           <caret line="128" column="89" lean-forward="true" selection-start-line="128" selection-start-column="89" selection-end-line="128" selection-end-column="89" />
           <folding>
-            <marker date="1518196645559" expanded="true" signature="2452:2541" ph="INSERT INTO table_name... " />
-            <marker date="1518196645559" expanded="true" signature="2452:2689" ph="INSERT INTO builder.users... " />
-            <marker date="1518196645559" expanded="true" signature="2757:2810" ph="SELECT passw... users" />
-            <marker date="1518196645559" expanded="true" signature="3270:3331" ph="INSERT INTO websites... " />
-            <marker date="1518196645559" expanded="true" signature="3270:3405" ph="INSERT INTO websites... " />
-            <marker date="1518196645559" expanded="true" signature="3487:3536" ph="SELECT * FRO... websites" />
-            <marker date="1518196645559" expanded="true" signature="3784:3813" ph="SELECT MIN(c... " />
-            <marker date="1518196645559" expanded="true" signature="3784:3822" ph="SELECT MIN(p... websites" />
-            <marker date="1518196645559" expanded="true" signature="4255:4298" ph="SELECT count... table" />
-            <marker date="1518196645559" expanded="true" signature="4255:4299" ph="SELECT count... table" />
-            <marker date="1518196645559" expanded="true" signature="4255:4302" ph="SELECT COUNT... websites" />
-            <marker date="1518196645559" expanded="true" signature="5191:5223" ph="SELECT * FRO... websites" />
-            <marker date="1518196645559" expanded="true" signature="5191:5224" ph="SELECT * FRO... websites" />
-            <marker date="1518196645559" expanded="true" signature="5191:5228" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="2476:2565" ph="INSERT INTO table_name... " />
+            <marker date="1518197428360" expanded="true" signature="2476:2713" ph="INSERT INTO builder.users... " />
+            <marker date="1518197428360" expanded="true" signature="2781:2834" ph="SELECT passw... users" />
+            <marker date="1518197428360" expanded="true" signature="3294:3355" ph="INSERT INTO websites... " />
+            <marker date="1518197428360" expanded="true" signature="3294:3429" ph="INSERT INTO websites... " />
+            <marker date="1518197428360" expanded="true" signature="3511:3560" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="3808:3837" ph="SELECT MIN(c... " />
+            <marker date="1518197428360" expanded="true" signature="3808:3846" ph="SELECT MIN(p... websites" />
+            <marker date="1518197428360" expanded="true" signature="4279:4322" ph="SELECT count... table" />
+            <marker date="1518197428360" expanded="true" signature="4279:4323" ph="SELECT count... table" />
+            <marker date="1518197428360" expanded="true" signature="4279:4326" ph="SELECT COUNT... websites" />
+            <marker date="1518197428360" expanded="true" signature="5271:5303" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="5271:5304" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="5271:5308" ph="SELECT * FRO... websites" />
           </folding>
         </state>
       </provider>
@@ -731,20 +700,20 @@
         <state relative-caret-position="578">
           <caret line="34" column="36" lean-forward="false" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="36" />
           <folding>
-            <marker date="1518196645559" expanded="true" signature="2452:2541" ph="INSERT INTO table_name... " />
-            <marker date="1518196645559" expanded="true" signature="2452:2689" ph="INSERT INTO builder.users... " />
-            <marker date="1518196645559" expanded="true" signature="2757:2810" ph="SELECT passw... users" />
-            <marker date="1518196645559" expanded="true" signature="3270:3331" ph="INSERT INTO websites... " />
-            <marker date="1518196645559" expanded="true" signature="3270:3405" ph="INSERT INTO websites... " />
-            <marker date="1518196645559" expanded="true" signature="3487:3536" ph="SELECT * FRO... websites" />
-            <marker date="1518196645559" expanded="true" signature="3784:3813" ph="SELECT MIN(c... " />
-            <marker date="1518196645559" expanded="true" signature="3784:3822" ph="SELECT MIN(p... websites" />
-            <marker date="1518196645559" expanded="true" signature="4255:4298" ph="SELECT count... table" />
-            <marker date="1518196645559" expanded="true" signature="4255:4299" ph="SELECT count... table" />
-            <marker date="1518196645559" expanded="true" signature="4255:4302" ph="SELECT COUNT... websites" />
-            <marker date="1518196645559" expanded="true" signature="5191:5223" ph="SELECT * FRO... websites" />
-            <marker date="1518196645559" expanded="true" signature="5191:5224" ph="SELECT * FRO... websites" />
-            <marker date="1518196645559" expanded="true" signature="5191:5228" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="2476:2565" ph="INSERT INTO table_name... " />
+            <marker date="1518197428360" expanded="true" signature="2476:2713" ph="INSERT INTO builder.users... " />
+            <marker date="1518197428360" expanded="true" signature="2781:2834" ph="SELECT passw... users" />
+            <marker date="1518197428360" expanded="true" signature="3294:3355" ph="INSERT INTO websites... " />
+            <marker date="1518197428360" expanded="true" signature="3294:3429" ph="INSERT INTO websites... " />
+            <marker date="1518197428360" expanded="true" signature="3511:3560" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="3808:3837" ph="SELECT MIN(c... " />
+            <marker date="1518197428360" expanded="true" signature="3808:3846" ph="SELECT MIN(p... websites" />
+            <marker date="1518197428360" expanded="true" signature="4279:4322" ph="SELECT count... table" />
+            <marker date="1518197428360" expanded="true" signature="4279:4323" ph="SELECT count... table" />
+            <marker date="1518197428360" expanded="true" signature="4279:4326" ph="SELECT COUNT... websites" />
+            <marker date="1518197428360" expanded="true" signature="5271:5303" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="5271:5304" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="5271:5308" ph="SELECT * FRO... websites" />
           </folding>
         </state>
       </provider>
@@ -782,20 +751,20 @@
         <state relative-caret-position="969">
           <caret line="57" column="22" lean-forward="false" selection-start-line="57" selection-start-column="22" selection-end-line="57" selection-end-column="22" />
           <folding>
-            <marker date="1518196645559" expanded="true" signature="2452:2541" ph="INSERT INTO table_name... " />
-            <marker date="1518196645559" expanded="true" signature="2452:2689" ph="INSERT INTO builder.users... " />
-            <marker date="1518196645559" expanded="true" signature="2757:2810" ph="SELECT passw... users" />
-            <marker date="1518196645559" expanded="true" signature="3270:3331" ph="INSERT INTO websites... " />
-            <marker date="1518196645559" expanded="true" signature="3270:3405" ph="INSERT INTO websites... " />
-            <marker date="1518196645559" expanded="true" signature="3487:3536" ph="SELECT * FRO... websites" />
-            <marker date="1518196645559" expanded="true" signature="3784:3813" ph="SELECT MIN(c... " />
-            <marker date="1518196645559" expanded="true" signature="3784:3822" ph="SELECT MIN(p... websites" />
-            <marker date="1518196645559" expanded="true" signature="4255:4298" ph="SELECT count... table" />
-            <marker date="1518196645559" expanded="true" signature="4255:4299" ph="SELECT count... table" />
-            <marker date="1518196645559" expanded="true" signature="4255:4302" ph="SELECT COUNT... websites" />
-            <marker date="1518196645559" expanded="true" signature="5191:5223" ph="SELECT * FRO... websites" />
-            <marker date="1518196645559" expanded="true" signature="5191:5224" ph="SELECT * FRO... websites" />
-            <marker date="1518196645559" expanded="true" signature="5191:5228" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="2476:2565" ph="INSERT INTO table_name... " />
+            <marker date="1518197428360" expanded="true" signature="2476:2713" ph="INSERT INTO builder.users... " />
+            <marker date="1518197428360" expanded="true" signature="2781:2834" ph="SELECT passw... users" />
+            <marker date="1518197428360" expanded="true" signature="3294:3355" ph="INSERT INTO websites... " />
+            <marker date="1518197428360" expanded="true" signature="3294:3429" ph="INSERT INTO websites... " />
+            <marker date="1518197428360" expanded="true" signature="3511:3560" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="3808:3837" ph="SELECT MIN(c... " />
+            <marker date="1518197428360" expanded="true" signature="3808:3846" ph="SELECT MIN(p... websites" />
+            <marker date="1518197428360" expanded="true" signature="4279:4322" ph="SELECT count... table" />
+            <marker date="1518197428360" expanded="true" signature="4279:4323" ph="SELECT count... table" />
+            <marker date="1518197428360" expanded="true" signature="4279:4326" ph="SELECT COUNT... websites" />
+            <marker date="1518197428360" expanded="true" signature="5271:5303" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="5271:5304" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="5271:5308" ph="SELECT * FRO... websites" />
           </folding>
         </state>
       </provider>
@@ -833,20 +802,20 @@
         <state relative-caret-position="918">
           <caret line="54" column="0" lean-forward="false" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
           <folding>
-            <marker date="1518196645559" expanded="true" signature="2452:2541" ph="INSERT INTO table_name... " />
-            <marker date="1518196645559" expanded="true" signature="2452:2689" ph="INSERT INTO builder.users... " />
-            <marker date="1518196645559" expanded="true" signature="2757:2810" ph="SELECT passw... users" />
-            <marker date="1518196645559" expanded="true" signature="3270:3331" ph="INSERT INTO websites... " />
-            <marker date="1518196645559" expanded="true" signature="3270:3405" ph="INSERT INTO websites... " />
-            <marker date="1518196645559" expanded="true" signature="3487:3536" ph="SELECT * FRO... websites" />
-            <marker date="1518196645559" expanded="true" signature="3784:3813" ph="SELECT MIN(c... " />
-            <marker date="1518196645559" expanded="true" signature="3784:3822" ph="SELECT MIN(p... websites" />
-            <marker date="1518196645559" expanded="true" signature="4255:4298" ph="SELECT count... table" />
-            <marker date="1518196645559" expanded="true" signature="4255:4299" ph="SELECT count... table" />
-            <marker date="1518196645559" expanded="true" signature="4255:4302" ph="SELECT COUNT... websites" />
-            <marker date="1518196645559" expanded="true" signature="5191:5223" ph="SELECT * FRO... websites" />
-            <marker date="1518196645559" expanded="true" signature="5191:5224" ph="SELECT * FRO... websites" />
-            <marker date="1518196645559" expanded="true" signature="5191:5228" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="2476:2565" ph="INSERT INTO table_name... " />
+            <marker date="1518197428360" expanded="true" signature="2476:2713" ph="INSERT INTO builder.users... " />
+            <marker date="1518197428360" expanded="true" signature="2781:2834" ph="SELECT passw... users" />
+            <marker date="1518197428360" expanded="true" signature="3294:3355" ph="INSERT INTO websites... " />
+            <marker date="1518197428360" expanded="true" signature="3294:3429" ph="INSERT INTO websites... " />
+            <marker date="1518197428360" expanded="true" signature="3511:3560" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="3808:3837" ph="SELECT MIN(c... " />
+            <marker date="1518197428360" expanded="true" signature="3808:3846" ph="SELECT MIN(p... websites" />
+            <marker date="1518197428360" expanded="true" signature="4279:4322" ph="SELECT count... table" />
+            <marker date="1518197428360" expanded="true" signature="4279:4323" ph="SELECT count... table" />
+            <marker date="1518197428360" expanded="true" signature="4279:4326" ph="SELECT COUNT... websites" />
+            <marker date="1518197428360" expanded="true" signature="5271:5303" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="5271:5304" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="5271:5308" ph="SELECT * FRO... websites" />
           </folding>
         </state>
       </provider>
@@ -987,26 +956,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/builder/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="15" lean-forward="false" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/builder/add-website.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="35" lean-forward="false" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://table:/63dd10b8/4a30a9af-930e-4ebc-9045-433f97b78b52/builder.users">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
@@ -1026,11 +980,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/builder/api/add-website.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="37" column="13" lean-forward="false" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
-          <folding />
+    <entry file="das://table:/63dd10b8/4a30a9af-930e-4ebc-9045-433f97b78b52/builder.users">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
@@ -1041,33 +994,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/builder/api/functions.php">
+    <entry file="file://$PROJECT_DIR$/builder/login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="161" column="0" lean-forward="false" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
-          <folding>
-            <marker date="1518196645559" expanded="true" signature="2452:2541" ph="INSERT INTO table_name... " />
-            <marker date="1518196645559" expanded="true" signature="2452:2689" ph="INSERT INTO builder.users... " />
-            <marker date="1518196645559" expanded="true" signature="2757:2810" ph="SELECT passw... users" />
-            <marker date="1518196645559" expanded="true" signature="3270:3331" ph="INSERT INTO websites... " />
-            <marker date="1518196645559" expanded="true" signature="3270:3405" ph="INSERT INTO websites... " />
-            <marker date="1518196645559" expanded="true" signature="3487:3536" ph="SELECT * FRO... websites" />
-            <marker date="1518196645559" expanded="true" signature="3784:3813" ph="SELECT MIN(c... " />
-            <marker date="1518196645559" expanded="true" signature="3784:3822" ph="SELECT MIN(p... websites" />
-            <marker date="1518196645559" expanded="true" signature="4255:4298" ph="SELECT count... table" />
-            <marker date="1518196645559" expanded="true" signature="4255:4299" ph="SELECT count... table" />
-            <marker date="1518196645559" expanded="true" signature="4255:4302" ph="SELECT COUNT... websites" />
-            <marker date="1518196645559" expanded="true" signature="5191:5223" ph="SELECT * FRO... websites" />
-            <marker date="1518196645559" expanded="true" signature="5191:5224" ph="SELECT * FRO... websites" />
-            <marker date="1518196645559" expanded="true" signature="5191:5228" ph="SELECT * FRO... websites" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/builder/js/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="56" lean-forward="false" selection-start-line="23" selection-start-column="56" selection-end-line="23" selection-end-column="56" />
+        <state relative-caret-position="204">
+          <caret line="12" column="15" lean-forward="false" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
           <folding />
         </state>
       </provider>
@@ -1077,6 +1007,45 @@
         <state relative-caret-position="119">
           <caret line="7" column="57" lean-forward="true" selection-start-line="7" selection-start-column="57" selection-end-line="7" selection-end-column="57" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/builder/js/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="23" column="56" lean-forward="false" selection-start-line="23" selection-start-column="56" selection-end-line="23" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/builder/api/add-website.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="37" column="23" lean-forward="true" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/builder/api/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1623">
+          <caret line="37" column="52" lean-forward="false" selection-start-line="37" selection-start-column="52" selection-end-line="37" selection-end-column="52" />
+          <folding>
+            <marker date="1518197428360" expanded="true" signature="2476:2565" ph="INSERT INTO table_name... " />
+            <marker date="1518197428360" expanded="true" signature="2476:2713" ph="INSERT INTO builder.users... " />
+            <marker date="1518197428360" expanded="true" signature="2781:2834" ph="SELECT passw... users" />
+            <marker date="1518197428360" expanded="true" signature="3294:3355" ph="INSERT INTO websites... " />
+            <marker date="1518197428360" expanded="true" signature="3294:3429" ph="INSERT INTO websites... " />
+            <marker date="1518197428360" expanded="true" signature="3511:3560" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="3808:3837" ph="SELECT MIN(c... " />
+            <marker date="1518197428360" expanded="true" signature="3808:3846" ph="SELECT MIN(p... websites" />
+            <marker date="1518197428360" expanded="true" signature="4279:4322" ph="SELECT count... table" />
+            <marker date="1518197428360" expanded="true" signature="4279:4323" ph="SELECT count... table" />
+            <marker date="1518197428360" expanded="true" signature="4279:4326" ph="SELECT COUNT... websites" />
+            <marker date="1518197428360" expanded="true" signature="5271:5303" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="5271:5304" ph="SELECT * FRO... websites" />
+            <marker date="1518197428360" expanded="true" signature="5271:5308" ph="SELECT * FRO... websites" />
+          </folding>
         </state>
       </provider>
     </entry>

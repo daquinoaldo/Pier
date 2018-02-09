@@ -1,5 +1,7 @@
 <?php
 
+define("DEBUG", true);
+
 /* LOGS and MESSAGES */
 function newMessage($code, $text) {
     $message = (object) [
@@ -145,13 +147,12 @@ function getPort() {
 
 /* DOCKER */
 function dockerRun ($name, $domain, $port, $volume, $image, $options) {
-    echo "DOCKER RUN";
-    if(!empty($volume)) $volume = "-v ".$volume;
-    echo shell_exec("sudo docker run --name $name -e VIRTUAL_HOST=$domain -p $port:80 $volume $options $image");
+    if (!empty($volume)) $volume = "-v ".$volume;
+    $result = shell_exec("sudo docker run --name $name -e VIRTUAL_HOST=$domain -p $port:80 $volume $options $image");
+    if (DEBUG) error_log("dockerRun($name, $domain, $port, $volume, $image, $options): $result");
 }
 
 function ftpAddUser ($username, $password, $home) {
-    echo "FTP ADD USER";
     echo shell_exec("sudo docker exec ftp bash /add-user.sh $username $password $home");
 }
 

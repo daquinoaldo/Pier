@@ -12,6 +12,7 @@
       <w>rootpw</w>
       <w>servername</w>
       <w>sudo</w>
+      <w>umask</w>
     </words>
   </dictionary>
 </component>
