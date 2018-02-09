@@ -13,7 +13,7 @@ $port = getPort();
 if (empty($port)) {
     error_log("Error in ".__FILE__." at line ".__LINE__.":".
     "all the ports are in use, cannot allocate another port. Consider increment the port range.");
-    die(newMessage(-3, "All the ports are in use, cannot allocate another port.".
+    die(newMessage(-3, "All the ports are in use, cannot allocate another port. ".
         "Contact the administrator."));
 }
 
@@ -27,11 +27,11 @@ if ($webserver != "apache" && $webserver != "nginx")
 // PHP
 $php = false;
 if (!empty($_POST['php']) && $_POST['php'] === "true") $php = true;
-
+error_log("PHPHPHPHPHPHP".$php);
 // Add websites informations in database
 $id = addWebsiteToDatabase($username, $domain, $port, $webserver, $php);
 if ($id < 0) {
-    error_log("Error in ".__FILE__." at line ".__LINE__.": error when writing to database.".
+    error_log("Error in ".__FILE__." at line ".__LINE__.": error when writing to database. ".
         "username = \"$username\", domain = \"$domain\", port = \"$port\", webserver = \"$webserver\", php = \"$php\".");
     die(newMessage(-6, "Error when writing to database."));
 }

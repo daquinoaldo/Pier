@@ -31,6 +31,12 @@
         <item name="builder-mysql" type="feb32156:DbDataSourceImpl" />
         <item name="builder: schema" type="c314c289:MysqlImplModel$Schema" />
       </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="builder-mysql" type="feb32156:DbDataSourceImpl" />
+        <item name="builder: schema" type="c314c289:MysqlImplModel$Schema" />
+        <item name="websites: table" type="98d5ac3d:MysqlImplModel$Table" />
+      </path>
     </expand>
     <select />
   </component>
@@ -39,6 +45,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="functions.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/builder/api/functions.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="197">
+              <caret line="93" column="9" lean-forward="false" selection-start-line="93" selection-start-column="9" selection-end-line="93" selection-end-column="9" />
+              <folding>
+                <marker date="1510699455673" expanded="true" signature="1970:2059" ph="INSERT INTO table_name... " />
+                <marker date="1510699455673" expanded="true" signature="1970:2203" ph="INSERT INTO builder.users... " />
+                <marker date="1510699455673" expanded="true" signature="2267:2320" ph="SELECT passw... users" />
+                <marker date="1510699455673" expanded="true" signature="2780:2841" ph="INSERT INTO websites... " />
+                <marker date="1510699455673" expanded="true" signature="2780:2915" ph="INSERT INTO websites... " />
+                <marker date="1510699455673" expanded="true" signature="3071:3120" ph="SELECT * FRO... websites" />
+                <marker date="1510699455673" expanded="true" signature="3360:3389" ph="SELECT MIN(c... " />
+                <marker date="1510699455673" expanded="true" signature="3360:3398" ph="SELECT MIN(p... websites" />
+                <marker date="1510699455673" expanded="true" signature="3827:3870" ph="SELECT count... table" />
+                <marker date="1510699455673" expanded="true" signature="3827:3871" ph="SELECT count... table" />
+                <marker date="1510699455673" expanded="true" signature="3827:3874" ph="SELECT COUNT... websites" />
+                <marker date="1510699455673" expanded="true" signature="4711:4743" ph="SELECT * FRO... websites" />
+                <marker date="1510699455673" expanded="true" signature="4711:4744" ph="SELECT * FRO... websites" />
+                <marker date="1510699455673" expanded="true" signature="4711:4748" ph="SELECT * FRO... websites" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/builder/login.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -52,8 +83,8 @@
       <file leaf-file-name="add-website.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/builder/api/add-website.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="485">
-              <caret line="41" column="1" lean-forward="true" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="1" />
+            <state relative-caret-position="230">
+              <caret line="29" column="26" lean-forward="false" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -223,6 +254,116 @@
       <recent name="C:\Users\Aldo D'Aquino\OneDrive\Documents\GitHub\docker-webserver-builder\builder\api" />
     </key>
   </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/restart.sh</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>
@@ -256,7 +397,7 @@
       <workItem from="1516372448339" duration="1300000" />
       <workItem from="1518186041497" duration="679000" />
       <workItem from="1518189746751" duration="9000" />
-      <workItem from="1518189790894" duration="1631000" />
+      <workItem from="1518189790894" duration="2857000" />
     </task>
     <task id="LOCAL-00001" summary="Start PHPStorm project">
       <created>1509968214700</created>
@@ -356,11 +497,18 @@
       <option name="project" value="LOCAL" />
       <updated>1518191421367</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="error_log stamps in case of error">
+      <created>1518191447025</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1518191447025</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57282000" />
+    <option name="totallyTimeSpent" value="58508000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -408,7 +556,8 @@
     <MESSAGE value="builderRun: second attempt" />
     <MESSAGE value="builderRun: attempt 3" />
     <MESSAGE value="Login shows alert in case of error" />
-    <option name="LAST_COMMIT_MESSAGE" value="Login shows alert in case of error" />
+    <MESSAGE value="error_log stamps in case of error" />
+    <option name="LAST_COMMIT_MESSAGE" value="error_log stamps in case of error" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -814,48 +963,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/builder/api/functions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2346">
-          <caret line="138" column="88" lean-forward="false" selection-start-line="138" selection-start-column="88" selection-end-line="138" selection-end-column="88" />
-          <folding>
-            <marker date="1510699455673" expanded="true" signature="1970:2059" ph="INSERT INTO table_name... " />
-            <marker date="1510699455673" expanded="true" signature="1970:2203" ph="INSERT INTO builder.users... " />
-            <marker date="1510699455673" expanded="true" signature="2267:2320" ph="SELECT passw... users" />
-            <marker date="1510699455673" expanded="true" signature="2780:2841" ph="INSERT INTO websites... " />
-            <marker date="1510699455673" expanded="true" signature="2780:2915" ph="INSERT INTO websites... " />
-            <marker date="1510699455673" expanded="true" signature="3071:3120" ph="SELECT * FRO... websites" />
-            <marker date="1510699455673" expanded="true" signature="3360:3389" ph="SELECT MIN(c... " />
-            <marker date="1510699455673" expanded="true" signature="3360:3398" ph="SELECT MIN(p... websites" />
-            <marker date="1510699455673" expanded="true" signature="3827:3870" ph="SELECT count... table" />
-            <marker date="1510699455673" expanded="true" signature="3827:3871" ph="SELECT count... table" />
-            <marker date="1510699455673" expanded="true" signature="3827:3874" ph="SELECT COUNT... websites" />
-            <marker date="1510699455673" expanded="true" signature="4711:4743" ph="SELECT * FRO... websites" />
-            <marker date="1510699455673" expanded="true" signature="4711:4744" ph="SELECT * FRO... websites" />
-            <marker date="1510699455673" expanded="true" signature="4711:4748" ph="SELECT * FRO... websites" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/builder/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="15" lean-forward="false" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://table:/63dd10b8/4a30a9af-930e-4ebc-9045-433f97b78b52/builder.users">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://table:/63dd10b8/4a30a9af-930e-4ebc-9045-433f97b78b52/builder.websites">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
@@ -875,10 +987,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/builder/api/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="93" column="9" lean-forward="false" selection-start-line="93" selection-start-column="9" selection-end-line="93" selection-end-column="9" />
+          <folding>
+            <marker date="1510699455673" expanded="true" signature="1970:2059" ph="INSERT INTO table_name... " />
+            <marker date="1510699455673" expanded="true" signature="1970:2203" ph="INSERT INTO builder.users... " />
+            <marker date="1510699455673" expanded="true" signature="2267:2320" ph="SELECT passw... users" />
+            <marker date="1510699455673" expanded="true" signature="2780:2841" ph="INSERT INTO websites... " />
+            <marker date="1510699455673" expanded="true" signature="2780:2915" ph="INSERT INTO websites... " />
+            <marker date="1510699455673" expanded="true" signature="3071:3120" ph="SELECT * FRO... websites" />
+            <marker date="1510699455673" expanded="true" signature="3360:3389" ph="SELECT MIN(c... " />
+            <marker date="1510699455673" expanded="true" signature="3360:3398" ph="SELECT MIN(p... websites" />
+            <marker date="1510699455673" expanded="true" signature="3827:3870" ph="SELECT count... table" />
+            <marker date="1510699455673" expanded="true" signature="3827:3871" ph="SELECT count... table" />
+            <marker date="1510699455673" expanded="true" signature="3827:3874" ph="SELECT COUNT... websites" />
+            <marker date="1510699455673" expanded="true" signature="4711:4743" ph="SELECT * FRO... websites" />
+            <marker date="1510699455673" expanded="true" signature="4711:4744" ph="SELECT * FRO... websites" />
+            <marker date="1510699455673" expanded="true" signature="4711:4748" ph="SELECT * FRO... websites" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://table:/63dd10b8/4a30a9af-930e-4ebc-9045-433f97b78b52/builder.users">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://table:/63dd10b8/4a30a9af-930e-4ebc-9045-433f97b78b52/builder.websites">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/builder/api/add-website.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="41" column="1" lean-forward="true" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="1" />
+        <state relative-caret-position="230">
+          <caret line="29" column="26" lean-forward="false" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
           <folding />
         </state>
       </provider>
