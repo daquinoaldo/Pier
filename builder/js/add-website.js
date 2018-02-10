@@ -54,6 +54,7 @@ function sWebsite() {
     // Send request
     var data = "webserver="+webserver+"&php="+php.checked+"&domain="+domain;
     post("api/add-website.php", data, onWebsiteCreated);
+    //TODO: show spinner
     return false;
 }
 
