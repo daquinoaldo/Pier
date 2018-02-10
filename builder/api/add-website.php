@@ -40,4 +40,4 @@ if (!builderRun($id)) {
     die(newMessage(-7,"Cannot run the configuration. Please delete it and try again."));
 }
 
-echo newMessage(-10, "Website created.");
+echo newMessage(0, "Website created.");
