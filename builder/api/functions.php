@@ -127,7 +127,7 @@ function getPort() {
     $finish_port = 8999;
     $port_to_exclude = array(8000, 8080, 8888);	// builder-mysql, builder and phpmyadmin
 
-    $port = mysqli_fetch_array(exec_bool("SELECT MIN(port) AS port FROM websites"))['port']; // last port used
+    $port = mysqli_fetch_array(exec_bool("SELECT MAX(port) AS port FROM websites"))['port']; // last port used
     if ($port == null) $port = $start_port; // there is no active website
     else $port++;    // last port used + 1 = next port number
     while (in_array($port, $port_to_exclude)) $port++;    // if the port is reserved increment again
