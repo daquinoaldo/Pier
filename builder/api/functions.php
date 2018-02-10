@@ -146,7 +146,7 @@ function getPort() {
 }
 
 /* DOCKER */
-function dockerRun ($name, $domain, $port, $volume, $image, $options) {
+function dockerRun ($name, $domain, $port, $volume, $image, $options = "") {
     if (!empty($volume)) $volume = "-v ".$volume;
     $result = shell_exec("sudo docker run -d --name $name -e VIRTUAL_HOST=$domain -p $port:80 $volume $options $image");
     if (DEBUG) error_log("dockerRun($name, $domain, $port, $volume, $image, $options): $result");
@@ -180,6 +180,6 @@ function builderRun($id) {
             return false;
             break;
     }
-    dockerRun("site".$website['id'], $website['domain'], $website['port'], $volume, $image, "");
+    dockerRun("site".$website['id'], $website['domain'], $website['port'], $volume, $image);
     return true;
 }
