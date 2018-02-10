@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6e001b9b-0b99-4fc0-818e-76ab2981797a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/builder/api/add-website.php" afterPath="$PROJECT_DIR$/builder/api/add-website.php" />
       <change beforePath="$PROJECT_DIR$/builder/api/functions.php" afterPath="$PROJECT_DIR$/builder/api/functions.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -383,7 +382,7 @@
       <workItem from="1516372448339" duration="1300000" />
       <workItem from="1518186041497" duration="679000" />
       <workItem from="1518189746751" duration="9000" />
-      <workItem from="1518189790894" duration="9112000" />
+      <workItem from="1518189790894" duration="9144000" />
     </task>
     <task id="LOCAL-00001" summary="Start PHPStorm project">
       <created>1509968214700</created>
@@ -532,11 +531,18 @@
       <option name="project" value="LOCAL" />
       <updated>1518197613705</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Fixed error with success return code">
+      <created>1518254686823</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1518254686823</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64763000" />
+    <option name="totallyTimeSpent" value="64795000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -591,7 +597,8 @@
     <MESSAGE value="Security checks in builderRun()" />
     <MESSAGE value="Debug functions.js" />
     <MESSAGE value="Debug dockerRun()" />
-    <option name="LAST_COMMIT_MESSAGE" value="Debug dockerRun()" />
+    <MESSAGE value="Fixed error with success return code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed error with success return code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
