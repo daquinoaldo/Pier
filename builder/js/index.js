@@ -26,7 +26,8 @@ function loadWebsitesList() {
                 row.insertCell(0).innerHTML = websites[i].id;
                 row.insertCell(1).innerHTML = "<a href=\"http://"+websites[i].domain+"\">"+websites[i].domain+"</a>";
                 row.insertCell(2).innerHTML = websites[i].webserver;
-                row.insertCell(3).innerHTML = websites[i].php;
+                // noinspection EqualityComparisonWithCoercionJS
+                row.insertCell(3).innerHTML = websites[i].php == 1 ? "yes" : "no";
                 row.insertCell(4).innerHTML = "<a href=\"manage.html?id="+websites[i].id+"\">manage</a>";
             }
             /// stop loading
