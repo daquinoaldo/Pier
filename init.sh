@@ -95,9 +95,9 @@ docker run --name phpmyadmin --link mysql:db -p 8888:80 -e VIRTUAL_HOST="phpmyad
 check
 
 # Preparing php:apache-mysql
-printf "Preparing php:apache-mysql... "
-docker build -t daquinoaldo/php:apache-mysql -f Dockerfile.builder . 1>log/dockerfile.mysql.log 2>log/dockerfile.mysql.error
-check
+#printf "Preparing php:apache-mysql... "
+#docker build -t daquinoaldo/php:apache-mysql -f Dockerfile.builder . 1>log/dockerfile.mysql.log 2>log/dockerfile.mysql.error
+#check
 
 # Run MySQL container for the builder users and websites database
 printf "Run builder-mysql... "
