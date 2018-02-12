@@ -34,7 +34,7 @@ function phpHandler() {
     else mysql.checked = false;		// you cannot have mySQL without PHP
 }
 
-function sWebsite() {
+function createWebsite() {
     // Domain
     var domain = encodeURIComponent(document.getElementById("domain").value);
     if(domain === "") {

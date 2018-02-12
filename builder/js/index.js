@@ -35,7 +35,7 @@ function loadWebsitesList() {
     });
 }
 
-function aLogout() {
+function logMeOut() {
     get("api/logout.php", null, function (json) {
         if(json.code < 0) {
             console.error("ERROR: "+json.text);
