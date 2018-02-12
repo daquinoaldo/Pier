@@ -1,6 +1,7 @@
 <?php
 
 define("DEBUG", true);
+$sites_folder = "/sites";
 
 /* LOGS and MESSAGES */
 function newMessage($code, $text) {
@@ -82,25 +83,35 @@ $rows = mysqli_fetch_all($result, [MYSQLI_ASSOC])
 
 
 /* USERS, LOGIN and SESSION */
-function signUp($username, $password, $email) {
-    $password = md5($password);
-    $sql = "INSERT INTO users (username, password, email) VALUES ('$username', '$password', '$email')";
-    if(exec_bool($sql) !== true) return false;
+
+function startSession($username) {
     session_start();
     $_SESSION['username'] = $username;
     session_commit();
+}
+
+function signUp($username, $password, $email) {
+    // put data in database
+    $password = md5($password);
+    $sql = "INSERT INTO users (username, password, email) VALUES ('$username', '$password', '$email')";
+    if(exec_bool($sql) !== true) return false;
+    // create ftp account
+    ftpAddUser($username, $password);
+    // logged in
+    startSession($username);
     return true;
 }
 
 function login($username, $password) {
+    // get user data from database
     $result = exec_bool("SELECT password FROM users WHERE username='$username'");
     if(!$result) return false;
+    // check password
     $result = mysqli_fetch_array($result)['password'];
     $password = md5($password);
     if($result !== $password) return false;
-    session_start();
-    $_SESSION['username'] = $username;
-    session_commit();
+    // logged in
+    startSession($username);
     return true;
 }
 
@@ -148,25 +159,63 @@ function getPort() {
 /* DOCKER */
 function dockerRun ($name, $domain, $port, $volume, $image, $options = "") {
     if (!empty($volume)) $volume = "-v ".$volume;
-    $result = shell_exec("sudo docker run -d --name $name -e VIRTUAL_HOST=$domain -p $port:80 $volume $options $image");
-    if (DEBUG) error_log("dockerRun($name, $domain, $port, $volume, $image, $options): $result");
+    shell_exec("sudo docker run -d --name $name -e VIRTUAL_HOST=$domain -p $port:80 $volume $options $image");
 }
 
-function ftpAddUser ($username, $password, $home) {
-    echo shell_exec("sudo docker exec ftp bash /add-user.sh $username $password $home");
+function ftpAddUser ($username, $password, $home = null) {
+    global $sites_folder;
+    if ($home == null) $home = "$sites_folder/$username";
+    shell_exec("sudo docker exec ftp bash /add-user.sh $username $password $home");
+}
+
+//TODO
+function create_sql ($database, $username, $password) {
+    $root_pw = "r00t";
+
+    function check($result, $message) {
+        if (!$result) {
+            error_log("create_sql(): $message");
+            return false;
+        }
+        else return true;
+    }
+
+    $link = mysqli_connect("172.17.0.1:3306", "root", "$root_pw");
+    if (!check($link,
+        "Error in connecting to MySQL container at 172.17.0.1:3306 with user root and password $root_pw."))
+        return false;
+    // Create database
+    $sql = "CREATE DATABASE `$database`";
+    $result = mysqli_query($link, $sql);
+    if (!check($result, "Error in creating database $database.")) return false;
+    // Create user
+    $sql = "CREATE USER '$username'@'%' IDENTIFIED BY '$password'";
+    $result = mysqli_query($link, $sql);
+    if (!check($result, "Error in creating user $username.")) return false;
+    // Flush privileges
+    $sql = "FLUSH PRIVILEGES";
+    $result = mysqli_query($link, $sql);
+    if (!check($result, "Error in flushing privileges to username $username.")) return false;
+    // Grant privileges
+    $sql = "GRANT ALL PRIVILEGES ON `$database`.* TO '$username'@'%'";
+    $result = mysqli_query($link, $sql);
+    if (!check($result, "Error in granting privileges to username $username.")) return false;
+    return true;
 }
 
 function builderRun($id) {
+    global $sites_folder;
+
     if ($id < 0) {
         return false;
     }
 
-    $sites_folder = "/sites";
-
     $website = mysqli_fetch_array(exec_bool("SELECT * FROM websites WHERE id='$id'"));
 
-    recursive_copy("$sites_folder/test_html/", "$sites_folder/".$website['id']."/");    // can return false
-    $volume = "$sites_folder/".$website['id'].":/var/www/site/";
+    $volume_path = $sites_folder."/".$website['username']."/".$website['id'];
+
+    recursive_copy("$sites_folder/test_html/", $volume_path."/");    // can return false
+    $volume = $volume_path.":/var/www/site/";
 
     switch ($website['webserver']) {
         case "apache":
