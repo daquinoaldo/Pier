@@ -4,8 +4,8 @@ sites_folder="/sites"
 rootpw="r00t"
 domain="wwwharf.aldodaquino.com"
 
-
-images=( ubuntu jwilder/nginx-proxy stilliard/pure-ftpd:hardened mysql phpmyadmin/phpmyadmin httpd:2.4 php:apache nginx mysql:5.7 wordpress )
+# images=( ubuntu jwilder/nginx-proxy stilliard/pure-ftpd:hardened mysql phpmyadmin/phpmyadmin httpd:2.4 php:apache nginx wordpress )
+images=( ubuntu jwilder/nginx-proxy stilliard/pure-ftpd:hardened mysql phpmyadmin/phpmyadmin httpd php:apache nginx )
 
 
 SKIP=false
