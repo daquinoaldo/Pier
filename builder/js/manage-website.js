@@ -11,7 +11,7 @@ function checkLogin() {
 checkLogin();
 
 /* RADIO HANDLERS */
-var domain = document.getElementById("domain");
+var domainField = document.getElementById("domain");
 var apache = document.getElementById("apache");
 var nginx = document.getElementById("nginx");
 var php = document.getElementById("php");
@@ -61,7 +61,7 @@ function retrieveWebsiteInfo() {
                 input.setAttribute("value", "value_you_want");
                 document.getElementById("form").appendChild(input);
                 // complete the form
-                domain.value = json.domain;
+                domainField.value = json.domain;
                 if (json.webserver === "nginx") nginx.checked = true;
                 else if (json.webserver === "apache") {
                     apache.checked = true;
@@ -73,12 +73,11 @@ function retrieveWebsiteInfo() {
             }
         });
     }
-    console.log("END");
 }
 
 function pushWebsite() {
     // Domain
-    var domain = encodeURIComponent(domain.value);
+    var domain = encodeURIComponent(domainField.value);
     if(domain === "") {
         console.error("Domain not defined.");
         alert("Please fill the domain field.");
@@ -94,7 +93,7 @@ function pushWebsite() {
         return false;
     }
     // Send request
-    var data = "webserver="+webserver+"&php="+php.checked+"&domain="+domain;
+    var data = "domain="+domain+"&webserver="+webserver+"&php="+php.checked+"&mysql="+mysql.checked;
     post("api/manage-website.php", data, onWebsiteCreated);
     //TODO: show spinner
     return false;
