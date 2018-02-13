@@ -74,7 +74,7 @@ chmod -R 777 .	#TODO: maybe not??
 
 # Create container for nginx-proxy, ftp, MySQL and phpMyAdmin
 printf "Creating container for nginx-proxy... "
-docker run --name nginx-proxy -d -p 80:80 -p 443:443 -e "VIRTUAL_PROTO=https" -e "VIRTUAL_PORT=443" -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy 1>log/nginx-proxy.log 2>log/nginx-proxy.error
+docker run --name nginx-proxy -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy 1>log/nginx-proxy.log 2>log/nginx-proxy.error
 check
 printf "Creating container for ftp... "
 docker build -t daquinoaldo/ftp -f Dockerfile.ftp . 1>log/dockerfile.ftp.log 2>log/dockerfile.ftp.error
@@ -91,7 +91,7 @@ do
 done
 echo "database online."
 printf "Creating container for phpMyAdmin... "
-docker run --name phpmyadmin --link mysql:db -p 8888:80 -p 4444:443 -e VIRTUAL_HOST="phpmyadmin.$domain" phpmyadmin/phpmyadmin 1>log/phpmyadmin.log 2>log/phpmyadmin.error &
+docker run --name phpmyadmin --link mysql:db -p 8888:80 -e VIRTUAL_HOST="phpmyadmin.$domain" phpmyadmin/phpmyadmin 1>log/phpmyadmin.log 2>log/phpmyadmin.error &
 check
 
 # Preparing php:apache-mysql
@@ -117,7 +117,7 @@ docker build -t daquinoaldo/builder -f Dockerfile.builder . 1>log/dockerfile.bui
 check
 printf "Run builder... "
 #docker run --name builder -p 8080:80 -p 2121:21 -p 2020:20 -p 2222:22 -v /var/run/docker.sock:/var/run/docker.sock -v `pwd`/builder:/var/www/site -v ${sites_folder}:${sites_folder} -e VIRTUAL_HOST="builder.$domain" daquinoaldo/builder 1>log/builder.log 2>log/builder.error &
-docker run --name builder -p 8080:80 -p 4040:443 -v /var/run/docker.sock:/var/run/docker.sock -v `pwd`/builder:/var/www/site -v ${sites_folder}:${sites_folder} -e VIRTUAL_HOST="builder.$domain" daquinoaldo/builder 1>log/builder.log 2>log/builder.error &
+docker run --name builder -p 8080:80 -v /var/run/docker.sock:/var/run/docker.sock -v `pwd`/builder:/var/www/site -v ${sites_folder}:${sites_folder} -e VIRTUAL_HOST="builder.$domain" daquinoaldo/builder 1>log/builder.log 2>log/builder.error &
 check
 echo "All done."
 echo "Ready!"
