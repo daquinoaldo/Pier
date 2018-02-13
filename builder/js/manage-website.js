@@ -73,6 +73,7 @@ function retrieveWebsiteInfo() {
             }
         });
     }
+    console.log("END");
 }
 
 function pushWebsite() {
@@ -103,6 +104,7 @@ function onWebsiteCreated(json) {
     if (json.code < 0) {
         console.error("ERROR: "+json.text);
         alert("Cannot create website now. Sorry for the inconvenience.");
+        return false;
     } else {
         window.location.href = "index.html";
     }
