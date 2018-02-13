@@ -74,7 +74,7 @@ chmod -R 777 .	#TODO: maybe not??
 
 # Create container for nginx-proxy, ftp, MySQL and phpMyAdmin
 printf "Creating container for nginx-proxy... "
-docker run --name nginx-proxy -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy 1>log/nginx-proxy.log 2>log/nginx-proxy.error
+docker run --name nginx-proxy -d -p 80:80 -p 443:443 -e "VIRTUAL_PROTO=https" -e "VIRTUAL_PORT=443" -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy 1>log/nginx-proxy.log 2>log/nginx-proxy.error
 check
 printf "Creating container for ftp... "
 docker build -t daquinoaldo/ftp -f Dockerfile.ftp . 1>log/dockerfile.ftp.log 2>log/dockerfile.ftp.error
