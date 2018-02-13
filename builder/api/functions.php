@@ -43,8 +43,8 @@ function recursive_copy($src, $dst) {
     return true;
 }
 
-/* DATABASE */
-function connect() {
+/* BUILDER DATABASE */
+function builderDbConnect() {
     $servername = "dwb.aldodaquino.com";
     $port = 8000;
     $username = "root";
@@ -61,14 +61,14 @@ function connect() {
 }
 
 function exec_bool($sql) {
-    $conn = connect();
+    $conn = builderDbConnect();
     $result = $conn->query($sql);
     $conn->close();
     return $result;
 }
 
 function exec_id($sql) {
-    $conn = connect();
+    $conn = builderDbConnect();
     if ($conn->query($sql)) $result = $conn->insert_id;
     else $result = -1;
     $conn->close();
@@ -97,6 +97,8 @@ function signUp($username, $password, $email) {
     if(exec_bool($sql) !== true) return false;
     // create ftp account
     ftpAddUser($username, $password);
+    // create mysql account
+    if (!mySqlAddUser($username, $password)) return false;
     // logged in
     startSession($username);
     return true;
@@ -120,16 +122,27 @@ function getUsername() {
     return $_SESSION['username'];
 }
 
-/* WEBSITES LIST */
-function addWebsiteToDatabase($username, $domain, $port, $webserver, $php) {
-    $sql = "INSERT INTO websites (username, domain, port, webserver, php)".
-        "VALUES ('$username', '$domain', '$port', '$webserver', '$php')";
+/* BUILDER DATABASE */
+function addWebsiteToDatabase($username, $domain, $port, $webserver, $php = false, $mysql = false) {
+    $sql = "INSERT INTO websites (username, domain, port, webserver, php, mysql)".
+        "VALUES ('$username', '$domain', '$port', '$webserver', '$php', '$mysql')";
+    return exec_id($sql);
+}
+
+function updateWebsiteInDatabase($id, $domain, $webserver, $php = false, $mysql = false) {
+    $sql = "UPDATE websites SET domain = '$domain', webserver = '$webserver', php = '$php', mysql = '$mysql')".
+        "WHERE id = '$id'";
     return exec_id($sql);
 }
 
 function getWebsitesList($username) {
     $sql = "SELECT * FROM websites WHERE username='$username'";
     return exec_bool($sql);
+}
+
+function getWebsite($id) {
+    if ($id < 0) return false;
+    return mysqli_fetch_array(exec_bool("SELECT * FROM websites WHERE id='$id'"));
 }
 
 /* PORTS */
@@ -156,79 +169,137 @@ function getPort() {
     return $port;
 }
 
-/* DOCKER */
-function dockerRun ($name, $domain, $port, $volume, $image, $options = "") {
-    if (!empty($volume)) $volume = "-v ".$volume;
-    shell_exec("sudo docker run -d --name $name -e VIRTUAL_HOST=$domain -p $port:80 $volume $options $image");
-}
-
+/* FTP */
 function ftpAddUser ($username, $password, $home = null) {
     global $sites_folder;
     if ($home == null) $home = "$sites_folder/$username";
     shell_exec("sudo docker exec ftp bash /add-user.sh $username $password $home");
 }
 
-//TODO
-function create_sql ($database, $username, $password) {
+/* MYSQL */
+function check($result, $link, $message) {
+    if (!$result) {
+        error_log("create_sql(): $message");
+        mysqli_close($link);
+        return false;
+    }
+    else return true;
+}
+
+function mySqlConnect() {
     $root_pw = "r00t";
 
-    function check($result, $message) {
-        if (!$result) {
-            error_log("create_sql(): $message");
-            return false;
-        }
-        else return true;
-    }
-
     $link = mysqli_connect("172.17.0.1:3306", "root", "$root_pw");
-    if (!check($link,
-        "Error in connecting to MySQL container at 172.17.0.1:3306 with user root and password $root_pw."))
-        return false;
-    // Create database
-    $sql = "CREATE DATABASE `$database`";
-    $result = mysqli_query($link, $sql);
-    if (!check($result, "Error in creating database $database.")) return false;
+    if (!check($link, $link,
+        "Error in connecting to MySQL container at 172.17.0.1:3306 with user root and password $root_pw.")) {
+        mysqli_close($link);
+        return null;
+    }
+    return $link;
+}
+
+function mySqlAddUser ($username, $password) {
+    $link = mySqlConnect();
     // Create user
     $sql = "CREATE USER '$username'@'%' IDENTIFIED BY '$password'";
     $result = mysqli_query($link, $sql);
-    if (!check($result, "Error in creating user $username.")) return false;
+    if (!check($result, $link, "Error in creating user $username.")) return false;
     // Flush privileges
     $sql = "FLUSH PRIVILEGES";
     $result = mysqli_query($link, $sql);
-    if (!check($result, "Error in flushing privileges to username $username.")) return false;
+    if (!check($result, $link, "Error in flushing privileges to username $username.")) return false;
+    mysqli_close($link);
+    return true;
+}
+
+function mySqlAddDb ($database, $username) {
+    $link = mySqlConnect();
+    // Create database
+    $sql = "CREATE DATABASE `$database`";
+    $result = mysqli_query($link, $sql);
+    if (!check($result, $link, "Error in creating database $database.")) return false;
     // Grant privileges
     $sql = "GRANT ALL PRIVILEGES ON `$database`.* TO '$username'@'%'";
     $result = mysqli_query($link, $sql);
-    if (!check($result, "Error in granting privileges to username $username.")) return false;
+    if (!check($result, $link, "Error in granting privileges to username $username.")) return false;
+    mysqli_close($link);
+    return true;
+}
+
+/* DOCKER */
+function dockerRun ($name, $domain, $port, $volume, $image, $options = "") {
+    if (!empty($volume)) $volume = "-v ".$volume;
+    shell_exec("sudo docker run -d --name $name -e VIRTUAL_HOST=$domain -p $port:80 $volume $options $image");
+}
+
+function isRunning ($container_name) {
+    if ($container_name == null || $container_name == "") return false;
+    $result = shell_exec("sudo docker ps | grep $container_name");
+    if ($result === null || $result ===  "") return false;
+    return true;
+}
+
+function stopContainer ($container_name) {
+    if ($container_name == null || $container_name == "") return false;
+    $result = shell_exec("sudo docker stop $container_name");
+    if ($result === null || $result ===  "" || $result !== $container_name) return false;
+    return true;
+}
+
+function rmContainer ($container_name) {
+    if ($container_name == null || $container_name == "") return false;
+    $result = shell_exec("sudo docker rm $container_name");
+    if ($result === null || $result ===  "" || $result !== $container_name) return false;
     return true;
 }
 
 function builderRun($id) {
     global $sites_folder;
 
-    if ($id < 0) {
-        return false;
+    $website = getWebsite($id);
+    if ($website == null) return false;
+
+    $website_name = "site".$website['id'];
+    $username = $website['username'];
+    $webserver = $website['webserver'];
+    $domain = $website['domain'];
+    $port = $website['port'];
+    if ($website_name == null | $username == null | $webserver == null | $domain == null | $port == null) return false;
+
+    // is an update?
+    $isRunning = isRunning($website_name);
+
+    $volume_path = "$sites_folder/$username/$website_name";
+    if(!$isRunning) recursive_copy("$sites_folder/test_html/", "$volume_path/");    // can return false
+    $volume = "$volume_path:/var/www/site/";
+
+    $php = $website['id'] > 0;
+
+    if (!$isRunning) {
+        $mysql = $website['mysql'] > 0;
+        if ($mysql)
+            if (!mySqlAddDb($website_name, $username)) return false;
     }
 
-    $website = mysqli_fetch_array(exec_bool("SELECT * FROM websites WHERE id='$id'"));
-
-    $volume_path = $sites_folder."/".$website['username']."/".$website['id'];
-
-    recursive_copy("$sites_folder/test_html/", $volume_path."/");    // can return false
-    $volume = $volume_path.":/var/www/site/";
-
-    switch ($website['webserver']) {
+    switch ($webserver) {
         case "apache":
-            $image = "httpd";
+            if($php) $image = "php:apache";
+            else $image = "httpd";
             break;
         case "nginx":
             $image = "nginx";
             break;
         default:
-            error_log("Unknown web server ".$website['webserver']);
+            error_log("Unknown web server $webserver");
             return false;
-            break;
     }
-    dockerRun("site".$website['id'], $website['domain'], $website['port'], $volume, $image);
+
+    if ($isRunning) {
+        stopContainer($website_name);
+        rmContainer($website_name);
+    }
+
+    dockerRun($website_name, $domain, $port, $volume, $image);
+
     return true;
 }

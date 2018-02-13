@@ -28,7 +28,7 @@ function loadWebsitesList() {
                 row.insertCell(2).innerHTML = websites[i].webserver;
                 // noinspection EqualityComparisonWithCoercionJS
                 row.insertCell(3).innerHTML = websites[i].php == 1 ? "yes" : "no";
-                row.insertCell(4).innerHTML = "<a href=\"manage.html?id="+websites[i].id+"\">manage</a>";
+                row.insertCell(4).innerHTML = "<a href=\"manage-website.html?id="+websites[i].id+"\">manage</a>";
             }
             /// stop loading
         }
