@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/docker-webserver-builder.iml" filepath="$PROJECT_DIR$/.idea/docker-webserver-builder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/WWWharf.iml" filepath="$PROJECT_DIR$/.idea/WWWharf.iml" />
     </modules>
   </component>
 </project>
