@@ -4,7 +4,7 @@ sites_folder="/sites"
 rootpw="r00t"
 domain="wwwharf.aldodaquino.com"
 
-# images=( ubuntu jwilder/nginx-proxy stilliard/pure-ftpd:hardened mysql phpmyadmin/phpmyadmin httpd:2.4 php:apache nginx wordpress )
+#images=( ubuntu jwilder/nginx-proxy stilliard/pure-ftpd:hardened mysql phpmyadmin/phpmyadmin httpd:2.4 php:apache nginx wordpress )
 images=( ubuntu jwilder/nginx-proxy stilliard/pure-ftpd:hardened mysql phpmyadmin/phpmyadmin httpd php:apache nginx )
 
 
@@ -83,7 +83,7 @@ check
 printf "Creating container for MySQL... "
 docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=${rootpw} mysql 1>log/mysql.log 2>log/mysql.error &
 check
-#wait mysql container
+# wait mysql container
 until nc -z -v -w30 127.0.0.1 3306 1>/dev/null 2>/dev/null
 do
 	printf "Waiting for database connection... "
@@ -91,7 +91,7 @@ do
 done
 echo "database online."
 printf "Creating container for phpMyAdmin... "
-docker run --name phpmyadmin --link mysql:db -p 8888:80 -e VIRTUAL_HOST="phpmyadmin.$domain" phpmyadmin/phpmyadmin 1>log/phpmyadmin.log 2>log/phpmyadmin.error &
+docker run --name phpmyadmin --link mysql:db -p 8888:80 -p 4444:443 -e VIRTUAL_HOST="phpmyadmin.$domain" phpmyadmin/phpmyadmin 1>log/phpmyadmin.log 2>log/phpmyadmin.error &
 check
 
 # Preparing php:apache-mysql
@@ -103,7 +103,7 @@ check
 printf "Run builder-mysql... "
 docker run --name builder-mysql -p 8000:3306 -e MYSQL_ROOT_PASSWORD=${rootpw} -v `pwd`/sql-initdb.d:/docker-entrypoint-initdb.d -d mysql 1>log/builder-mysql.log 2>log/builder-mysql.error &
 check
-#wait builder-mysql container
+# wait builder-mysql container
 until nc -z -v -w30 127.0.0.1 8000 1>/dev/null 2>/dev/null
 do
 	printf "Waiting for builder's database connection... "
@@ -116,7 +116,8 @@ printf "Preparing builder... "
 docker build -t daquinoaldo/builder -f Dockerfile.builder . 1>log/dockerfile.builder.log 2>log/dockerfile.builder.error
 check
 printf "Run builder... "
-docker run --name builder -v /var/run/docker.sock:/var/run/docker.sock -v `pwd`/builder:/var/www/site -v ${sites_folder}:${sites_folder} -p 8080:80 -p 2121:21 -p 2020:20 -p 2222:22 -e VIRTUAL_HOST="builder.$domain" daquinoaldo/builder 1>log/builder.log 2>log/builder.error &
+#docker run --name builder -p 8080:80 -p 2121:21 -p 2020:20 -p 2222:22 -v /var/run/docker.sock:/var/run/docker.sock -v `pwd`/builder:/var/www/site -v ${sites_folder}:${sites_folder} -e VIRTUAL_HOST="builder.$domain" daquinoaldo/builder 1>log/builder.log 2>log/builder.error &
+docker run --name builder -p 8080:80 -p 4040:443 -v /var/run/docker.sock:/var/run/docker.sock -v `pwd`/builder:/var/www/site -v ${sites_folder}:${sites_folder} -e VIRTUAL_HOST="builder.$domain" daquinoaldo/builder 1>log/builder.log 2>log/builder.error &
 check
 echo "All done."
 echo "Ready!"
