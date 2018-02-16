@@ -1,19 +1,18 @@
 #!/bin/bash
 # Where to put files	!! CHANGE IT ALSO IN docker-clean.sh !!
 sites_folder="/sites"
-rootpw="r00t"
 domain="wwwharf.aldodaquino.com"
 
 #images=( ubuntu jwilder/nginx-proxy stilliard/pure-ftpd:hardened mysql phpmyadmin/phpmyadmin httpd:2.4 php:apache nginx wordpress )
 images=( ubuntu jwilder/nginx-proxy stilliard/pure-ftpd:hardened mysql phpmyadmin/phpmyadmin httpd php:apache nginx )
-
+rootpw="r00t"
 
 SKIP=false
 
 # Options:
 # -s|--skip: skip pull
 # -f|--sites_folder: specify the sites folder		!! Remember to change it also in the others file !!
-# -p|--rootpw: specify the mysql root password		!! Remember to change it also in the others file !!
+# -d|--domain: specify the domain
 while [[ $@ ]]
 do
 	key="$1"
@@ -25,8 +24,8 @@ do
 			sites_folder="$2"
 			shift
 			;;
-		-p|--rootpw)
-			rootpw="$2"
+		-d|--domain)
+			domain="$2"
 			shift
 			;;
 		*)
