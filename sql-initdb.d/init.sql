@@ -18,13 +18,13 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `websites` (
-  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `username` VARCHAR(255) NOT NULL,
   `domain` VARCHAR(255) NOT NULL UNIQUE,
   `port` INT NOT NULL UNIQUE,
   `webserver` VARCHAR(6) NOT NULL,
-  `php` BOOLEAN NOT NULL,
-  `mysql` BOOLEAN NOT NULL,
+  `php` BOOLEAN,
+  `mysql` BOOLEAN,
   FOREIGN KEY (username) REFERENCES users(username)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
