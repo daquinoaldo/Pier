@@ -26,9 +26,7 @@ CREATE TABLE `websites` (
   `php` BOOLEAN NOT NULL,
   `mysql` BOOLEAN NOT NULL,
   FOREIGN KEY (username) REFERENCES users(username)
-)
-
-ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 COMMIT;
 
