@@ -28,12 +28,6 @@ printf "Removing logs... "
 rm -rf log
 check
 
-
-# Reset port to default
-printf "Resetting the start port... "
-echo "8000" > www/port
-check
-
 # Remove all sites data
 printf "Removing all sites data... "
 rm -rf /sites
