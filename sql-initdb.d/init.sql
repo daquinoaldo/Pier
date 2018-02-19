@@ -24,8 +24,7 @@ CREATE TABLE `websites` (
   `port` INT NOT NULL UNIQUE,
   `webserver` VARCHAR(6) NOT NULL,
   `php` BOOLEAN,
-  `mysql` BOOLEAN,
-  FOREIGN KEY (username) REFERENCES users(username)
+  `mysql` BOOLEAN
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 COMMIT;
