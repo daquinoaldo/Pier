@@ -45,7 +45,7 @@ function recursive_copy($src, $dst) {
 
 /* BUILDER DATABASE */
 function builderDbConnect() {
-    $servername = "dwb.aldodaquino.com";
+    $servername = "localhost";
     $port = 8000;
     $username = "root";
     $password = "r00t";
