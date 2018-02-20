@@ -1,7 +1,7 @@
 #!/bin/bash
 # Where to put files	!! CHANGE IT ALSO IN docker-clean.sh !!
 sites_folder="/sites"
-domain="wwwharf.aldodaquino.com"
+domain="pier.aldodaquino.com"
 
 #images=( ubuntu jwilder/nginx-proxy stilliard/pure-ftpd:hardened mysql phpmyadmin/phpmyadmin httpd:2.4 php:apache nginx wordpress )
 images=( ubuntu jwilder/nginx-proxy stilliard/pure-ftpd:hardened mysql phpmyadmin/phpmyadmin httpd php:apache nginx )

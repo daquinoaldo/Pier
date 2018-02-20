@@ -53,7 +53,7 @@ function retrieveWebsiteInfo() {
                 console.error("ERROR: " + json.text);
                 alert("ERROR: Can't retrieve the website info. ID is not correct or the website is not your.")
             } else {
-                document.title = "Edit website | WWWharf";
+                document.title = "Edit website | Pier";
                 // add id to form
                 var input = document.createElement("input");
                 input.setAttribute("type", "hidden");
