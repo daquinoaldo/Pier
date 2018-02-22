@@ -123,13 +123,13 @@ function getUsername() {
 }
 
 /* BUILDER DATABASE */
-function addWebsiteToDatabase($username, $domain, $port, $webserver, $php = false, $mysql = false) {
+function addWebsiteToDatabase($username, $domain, $port, $webserver, $php = 0, $mysql = 0) {
     $sql = "INSERT INTO websites (username, domain, port, webserver, php, mysql)".
         "VALUES ('$username', '$domain', '$port', '$webserver', '$php', '$mysql')";
     return exec_id($sql);
 }
 
-function updateWebsiteInDatabase($id, $domain, $webserver, $php = false, $mysql = false) {
+function updateWebsiteInDatabase($id, $domain, $webserver, $php = 0, $mysql = 0) {
     $sql = "UPDATE websites SET domain = '$domain', webserver = '$webserver', php = '$php', mysql = '$mysql')".
         "WHERE id = '$id'";
     return exec_id($sql);
