@@ -36,6 +36,8 @@ function phpHandler() {
     else mysql.checked = false;		// you cannot have mySQL without PHP
 }
 
+var id = null;
+
 /* MANAGE WEBSITE FUNCTIONS */
 function retrieveWebsiteInfo() {
     var $_GET = {};
@@ -47,7 +49,7 @@ function retrieveWebsiteInfo() {
     });
 
     if ($_GET['id'] != null && $_GET['id'] > 0) {
-        var id = $_GET['id'];
+        id = $_GET['id'];
         get("api/get-website.php?id="+id, null, function (json) {
             if (json.code < 0) {
                 console.error("ERROR: " + json.text);
@@ -94,6 +96,7 @@ function pushWebsite() {
     }
     // Send request
     var data = "domain="+domain+"&webserver="+webserver+"&php="+php.checked+"&mysql="+mysql.checked;
+    if (id != null) data = data+"&id="+id;
     post("api/manage-website.php", data, onWebsiteCreated);
     //TODO: show spinner
     return false;
