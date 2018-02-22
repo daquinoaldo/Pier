@@ -57,17 +57,17 @@ function retrieveWebsiteInfo() {
                 // add id to form
                 var input = document.createElement("input");
                 input.setAttribute("type", "hidden");
-                input.setAttribute("id", id);
-                input.setAttribute("value", "value_you_want");
+                input.setAttribute("name", "id");
+                input.setAttribute("value", id);
                 document.getElementById("form").appendChild(input);
                 // complete the form
-                domainField.value = json.domain;
-                if (json.webserver === "nginx") nginx.checked = true;
-                else if (json.webserver === "apache") {
+                domainField.value = json.text.domain;
+                if (json.text.webserver === "nginx") nginx.checked = true;
+                else if (json.text.webserver === "apache") {
                     apache.checked = true;
-                    if (json.php) {
+                    if (json.text.php) {
                         php.checked = true;
-                        if (json.mysql) mysql.checked = true;
+                        if (json.text.mysql) mysql.checked = true;
                     }
                 }
             }
