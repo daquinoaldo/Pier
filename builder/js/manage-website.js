@@ -57,11 +57,11 @@ function retrieveWebsiteInfo() {
             } else {
                 document.title = "Edit website | Pier";
                 // add id to form
-                var input = document.createElement("input");
+                /*var input = document.createElement("input");
                 input.setAttribute("type", "hidden");
                 input.setAttribute("name", "site-id");
                 input.setAttribute("value", id);
-                document.getElementById("form").appendChild(input);
+                document.getElementById("form").appendChild(input);*/
                 // complete the form
                 domainField.value = json.text.domain;
                 if (json.text.webserver === "nginx") nginx.checked = true;

@@ -6,8 +6,8 @@ if (empty($username)) die(newMessage(-1, "Not logged in."));
 
 // Already exist?
 $update = false;
-if (!empty($_POST['site-id'])) {
-    $id = htmlentities($_POST['site-id'], ENT_QUOTES);
+if (!empty($_POST['id'])) {
+    $id = htmlentities($_POST['id'], ENT_QUOTES);
     if ($id != null && $id !== "" && getWebsite($id)['username'] === $username) $update = true;
 }
 
