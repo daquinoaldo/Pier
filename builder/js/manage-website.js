@@ -57,7 +57,7 @@ function retrieveWebsiteInfo() {
                 // add id to form
                 var input = document.createElement("input");
                 input.setAttribute("type", "hidden");
-                input.setAttribute("name", "id");
+                input.setAttribute("name", "site-id");
                 input.setAttribute("value", id);
                 document.getElementById("form").appendChild(input);
                 // complete the form
