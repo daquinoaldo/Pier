@@ -48,10 +48,16 @@ if (!$update) {
     $id = addWebsiteToDatabase($username, $domain, $port, $webserver, $php, $mysql);
     if ($id < 0) {
         error_log("Error in " . __FILE__ . " at line " . __LINE__ . ": error when writing to database. " .
-            "username = \"$username\", domain = \"$domain\", port = \"$port\", webserver = \"$webserver\", php = \"$php\".");
+            "username = \"$username\", domain = \"$domain\", port = \"$port\", webserver = \"$webserver\"," .
+            "php = \"$php\", mysql = \"$mysql\".");
         die(newMessage(-6, "Error when writing to database."));
     }
-} else updateWebsiteInDatabase($id, $domain, $webserver, $php, $mysql);
+} else if(!updateWebsiteInDatabase(intval($id), $domain, $webserver, $php, $mysql)) {
+    error_log("Error in " . __FILE__ . " at line " . __LINE__ . ": error when writing to database. " .
+        "id = \"$id\", username = \"$username\", domain = \"$domain\", webserver = \"$webserver\"," .
+        "php = \"$php\", mysql = \"$mysql\".");
+    die(newMessage(-6, "Error when writing to database."));
+}
 
 if (!builderRun($id)) {
     error_log("Error in ".__FILE__." at line ".__LINE__.": cannot run the configuration with id $id");
