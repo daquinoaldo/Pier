@@ -284,11 +284,11 @@ function builderRun($id) {
         case "apache":
             if($php) $image = "php:apache";
             else $image = "httpd";
-            $volume = "/usr/local/apache2/htdocs/";
+            $volume = "/var/www/html/";
             break;
         case "nginx":
             $image = "nginx";
-            $volume = "/var/www/site/";
+            $volume = "/usr/share/nginx/html/";
             break;
         default:
             error_log("Unknown web server $webserver");
