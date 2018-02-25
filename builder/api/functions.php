@@ -271,7 +271,6 @@ function builderRun($id) {
 
     $volume_path = "$sites_folder/$username/$website_name";
     if(!$isRunning) recursive_copy("$sites_folder/test_html/", "$volume_path/");    // can return false
-    $volume = "$volume_path:/var/www/site/";
 
     $php = $website['id'] > 0;
 
@@ -285,14 +284,18 @@ function builderRun($id) {
         case "apache":
             if($php) $image = "php:apache";
             else $image = "httpd";
+            $volume = "/usr/local/apache2/htdocs/";
             break;
         case "nginx":
             $image = "nginx";
+            $volume = "/var/www/site/";
             break;
         default:
             error_log("Unknown web server $webserver");
             return false;
     }
+
+    $volume = "$volume_path:$volume";
 
     if ($isRunning) {
         stopContainer($website_name);
