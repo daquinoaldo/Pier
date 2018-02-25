@@ -6,6 +6,8 @@ else
 	username=$1
 	password=$2
 	home=$3
+	mkdir ${home}
+	chmod -R 777 ${home}
 	useradd ${username}
 	uid="$(id -u ${username})"
 	gid="$(id -G ${username})"
@@ -13,5 +15,4 @@ else
 	echo ${gid}
 	( echo ${password} ; echo ${password} ) | pure-pw useradd ${username} -u ${uid} -g ${gid} -d ${home}
 	pure-pw mkdb
-	chmod -R 777 ${home}
 fi
