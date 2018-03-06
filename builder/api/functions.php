@@ -270,7 +270,8 @@ function builderRun($id) {
     $isRunning = isRunning($website_name);
 
     $volume_path = "$sites_folder/$username/$website_name";
-    if(!$isRunning) recursive_copy("$sites_folder/test_html/", "$volume_path/");    // can return false
+    if(!$isRunning) //recursive_copy("$sites_folder/test_html/", "$volume_path/");    // can return false
+        shell_exec("sudo cp $sites_folder/test_html/index.html $volume_path/index.html");
 
     $php = $website['id'] > 0;
 
